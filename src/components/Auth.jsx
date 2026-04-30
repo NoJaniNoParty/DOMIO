@@ -85,7 +85,7 @@ export default function Auth() {
       {message && <p className="message">{message}</p>}
 
       <p>
-        {isRegister ? 'Već imaš račun?' : 'Nemaš račun?'}{' '}
+        {isRegister ? 'Vec imaš račun?' : 'Nemaš račun?'}{' '}
         <button
           type="button"
           className="link"

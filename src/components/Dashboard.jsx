@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../supabaseClient'
 import KreirajKucanstvo from './KreirajKucanstvo'
 import PridruziSe from './PridruziSe'
+import Kucanstvo from './Kucanstvo'
 
 export default function Dashboard({ session }) {
   const [kucanstva, setKucanstva] = useState([])
@@ -54,7 +55,7 @@ export default function Dashboard({ session }) {
       if (!aktivan) return
 
       if (error) {
-        console.error('Greška pri učitavanju:', error)
+        console.error('Greska pri ucitavanju:', error)
       } else {
         setKucanstva(data)
       }
@@ -71,21 +72,14 @@ export default function Dashboard({ session }) {
   }
 
   // Ako je odabrano kućanstvo, pokaži placeholder
+  // Ako je odabrano kućanstvo, pokaži ga
   if (aktivnoKucanstvo) {
     return (
-      <div className="container container-wide">
-        <div className="header">
-          <button className="link" onClick={() => setAktivnoKucanstvo(null)}>
-            ← Natrag
-          </button>
-          <button onClick={handleLogout}>Odjavi se</button>
-        </div>
-        <h1>🏡 {aktivnoKucanstvo.naziv}</h1>
-        <p>Pozivni kod: <strong>{aktivnoKucanstvo.pozivni_kod}</strong></p>
-        <p style={{marginTop: 24, color: '#888'}}>
-          Ovdje će biti chat, zadaci, kalendar i financije (Faza 6).
-        </p>
-      </div>
+      <Kucanstvo
+        kucanstvo={aktivnoKucanstvo}
+        session={session}
+        onBack={() => setAktivnoKucanstvo(null)}
+      />
     )
   }
 

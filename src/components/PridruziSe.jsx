@@ -18,13 +18,13 @@ export default function PridruziSe({onClose, onSuccess }) {
       let poruka = errFunkcija.message
 
       if (poruka.includes('ne postoji')) {
-        poruka = 'Kućanstvo s tim kodom ne postoji.'
-      } else if (poruka.includes('Vec si clan') || poruka.includes('Već si član')) {
-        poruka = 'Već si član ovog kućanstva.'
+        poruka = 'Kucanstvo s tim kodom ne postoji.'
+      } else if (poruka.includes('Vec si clan') || poruka.includes('Vec si clan')) {
+        poruka = 'Vec si clan ovog kucanstva.'
       } else if (poruka.includes('nije prijavljen')) {
-        poruka = 'Nisi prijavljen. Osvježi stranicu i prijavi se opet.'
+        poruka = 'Nisi prijavljen. Osvjezi stranicu i prijavi se opet.'
       } else {
-        poruka = 'Greška: ' + poruka
+        poruka = 'Greska: ' + poruka
       }
 
       setError(poruka)

@@ -11,7 +11,7 @@ export default function KreirajKucanstvo({ onClose, onSuccess }) {
     setLoading(true)
     setError('')
 
-    // Pozovi SQL funkciju koja sve napravi u jednom koraku
+    // Pozovi SQL funkciju koja sve napravi odjednom
     const { error: errFunkcija } = await supabase
       .rpc('kreiraj_kucanstvo', { p_naziv: naziv })
 
