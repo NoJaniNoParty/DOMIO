@@ -37,7 +37,7 @@ export default function PridruziSe({onClose, onSuccess }) {
   }
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlayt" onClick={onClose}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
         <h2>Pridruzi se kucanstvu</h2>
 

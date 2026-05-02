@@ -1,5 +1,10 @@
 
-
+.modaltest{
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+    height: 100%;
+}
 :root {
   --primary: #6366f1;
   --primary-dark: #4f46e5;

@@ -48,6 +48,7 @@ export default function Auth() {
   }
 
   return (
+    <div className= "modaltest">
     <div className="container">
       <h1>Domio</h1>
       <h2>{isRegister ? 'Registracija' : 'Prijava'}</h2>
@@ -93,6 +94,7 @@ export default function Auth() {
           {isRegister ? 'Prijavi se' : 'Registriraj se'}
         </button>
       </p>
+    </div>
     </div>
   )
 }
