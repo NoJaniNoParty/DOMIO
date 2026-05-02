@@ -23,9 +23,9 @@ export default function Auth() {
     })
 
     if (error) {
-      setMessage('Greška: ' + error.message)
+      setMessage('Greska: ' + error.message)
     } else {
-      setMessage('Uspješno! Sad se možeš prijaviti.')
+      setMessage('Uspjesno! Sad se mozes prijaviti.')
       setIsRegister(false)
     }
     setLoading(false)
@@ -42,14 +42,14 @@ export default function Auth() {
     })
 
     if (error) {
-      setMessage('Greška: ' + error.message)
+      setMessage('Greska: ' + error.message)
     }
     setLoading(false)
   }
 
   return (
     <div className="container">
-      <h1>🏡 Domio</h1>
+      <h1>Domio</h1>
       <h2>{isRegister ? 'Registracija' : 'Prijava'}</h2>
 
       <form onSubmit={isRegister ? handleRegister : handleLogin}>
@@ -59,41 +59,37 @@ export default function Auth() {
             placeholder="Ime"
             value={ime}
             onChange={(e) => setIme(e.target.value)}
-            required
-          />
+            required/>
         )}
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+          required/>
         <input
           type="password"
           placeholder="Lozinka (min. 6 znakova)"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          minLength={6}
-        />
+          minLength={6}/>
         <button type="submit" disabled={loading}>
-          {loading ? 'Učitavanje...' : (isRegister ? 'Registriraj se' : 'Prijavi se')}
+          {loading ? 'Ucitavanje...' : (isRegister ? 'Registriraj se' : 'Prijavi se')}
         </button>
       </form>
 
       {message && <p className="message">{message}</p>}
 
       <p>
-        {isRegister ? 'Vec imaš račun?' : 'Nemaš račun?'}{' '}
+        {isRegister ? 'Vec imas racun?' : 'Nemas racun?'}{' '}
         <button
           type="button"
           className="link"
           onClick={() => {
             setIsRegister(!isRegister)
             setMessage('')
-          }}
-        >
+          }}>
           {isRegister ? 'Prijavi se' : 'Registriraj se'}
         </button>
       </p>

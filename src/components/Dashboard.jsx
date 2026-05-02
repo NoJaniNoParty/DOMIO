@@ -11,7 +11,7 @@ export default function Dashboard({ session }) {
   const [showPridruzi, setShowPridruzi] = useState(false)
   const [aktivnoKucanstvo, setAktivnoKucanstvo] = useState(null)
 
-  // Funkcija za učitavanje kućanstava
+  // ucitavanje kucanstava
   const ucitajKucanstva = async () => {
     setLoading(true)
 
@@ -28,14 +28,14 @@ export default function Dashboard({ session }) {
       .eq('korisnik_id', session.user.id)
 
     if (error) {
-      console.error('Greška pri učitavanju:', error)
+      console.error('Greska pri ucitavanju:', error)
     } else {
       setKucanstva(data)
     }
     setLoading(false)
   }
 
-  // Učitaj kućanstva pri pokretanju
+  // ucitaj kucanstva kad se pokrene
   useEffect(() => {
     let aktivan = true
 
@@ -54,7 +54,7 @@ export default function Dashboard({ session }) {
 
       if (!aktivan) return
 
-      if (error) {
+        if (error) {
         console.error('Greska pri ucitavanju:', error)
       } else {
         setKucanstva(data)
@@ -71,33 +71,34 @@ export default function Dashboard({ session }) {
     await supabase.auth.signOut()
   }
 
-  // Ako je odabrano kućanstvo, pokaži placeholder
-  // Ako je odabrano kućanstvo, pokaži ga
-  if (aktivnoKucanstvo) {
+  
+  // Ako je odabrano kucanstvo
+  if (aktivnoKucanstvo)   {
     return (
       <Kucanstvo
         kucanstvo={aktivnoKucanstvo}
         session={session}
-        onBack={() => setAktivnoKucanstvo(null)}
-      />
+        onBack={() => {setAktivnoKucanstvo(null)
+          ucitajKucanstva()
+        }}/>
     )
   }
 
   return (
     <div className="container container-wide">
       <div className="header">
-        <h1>🏡 Domio</h1>
+        <h1>Domio</h1>
         <button onClick={handleLogout}>Odjavi se</button>
       </div>
 
       <p className="welcome">Bok, <strong>{session.user.email}</strong>!</p>
 
-      <h2>Tvoja kućanstva</h2>
+      <h2>Tvoja kucanstva</h2>
 
       {loading ? (
-        <p>Učitavanje...</p>
+        <p>Ucitavanje...</p>
       ) : kucanstva.length === 0 ? (
-        <p className="empty">Nemaš još kućanstava. Kreiraj novo ili se pridruži postojećem!</p>
+        <p className="empty">Nemas jos kucanstava. Kreiraj novo ili se pridruzi postojecem!</p>
       ) : (
         <div className="kucanstva-lista">
           {kucanstva.map((clan) => (
@@ -116,10 +117,10 @@ export default function Dashboard({ session }) {
 
       <div className="dashboard-actions">
         <button onClick={() => setShowKreiraj(true)}>
-          + Kreiraj kućanstvo
+          + Kreiraj kucanstvo
         </button>
         <button className="secondary" onClick={() => setShowPridruzi(true)}>
-          Pridruži se
+          Pridruzi se
         </button>
       </div>
 
@@ -130,8 +131,7 @@ export default function Dashboard({ session }) {
           onSuccess={() => {
             setShowKreiraj(false)
             ucitajKucanstva()
-          }}
-        />
+          }}/>
       )}
 
       {showPridruzi && (
@@ -141,8 +141,7 @@ export default function Dashboard({ session }) {
           onSuccess={() => {
             setShowPridruzi(false)
             ucitajKucanstva()
-          }}
-        />
+          }}/>
       )}
     </div>
   )

@@ -39,7 +39,7 @@ export default function PridruziSe({onClose, onSuccess }) {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <h2>Pridruži se kućanstvu</h2>
+        <h2>Pridruzi se kucanstvu</h2>
 
         <form onSubmit={handleSubmit}>
           <input
@@ -50,8 +50,7 @@ export default function PridruziSe({onClose, onSuccess }) {
             maxLength={6}
             required
             autoFocus
-            style={{textTransform: 'uppercase', letterSpacing: 4, textAlign: 'center', fontSize: 18}}
-          />
+            style={{textTransform: 'uppercase', letterSpacing: 4, textAlign: 'center', fontSize: 18}}/>
 
           {error && <p className="message">{error}</p>}
 
@@ -60,7 +59,7 @@ export default function PridruziSe({onClose, onSuccess }) {
               Odustani
             </button>
             <button type="submit" disabled={loading}>
-              {loading ? 'Pridružujem...' : 'Pridruži se'}
+              {loading ? 'Pridruzujem...' : 'Pridruzi se'}
             </button>
           </div>
         </form>

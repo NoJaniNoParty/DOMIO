@@ -1,3 +1,3 @@
 
 # Domio
-This is my project 'Domio' an app for household simplification
+Moja aplikacija Domio za upravljanje kucanstvom

@@ -14,13 +14,11 @@ export default function KreirajKucanstvo({ onClose, onSuccess }) {
     // Pozovi SQL funkciju koja sve napravi odjednom
     const { error: errFunkcija } = await supabase
       .rpc('kreiraj_kucanstvo', { p_naziv: naziv })
-
     if (errFunkcija) {
-      setError('Greška: ' + errFunkcija.message)
+      setError('Greska: ' + errFunkcija.message)
       setLoading(false)
       return
     }
-
     setLoading(false)
     onSuccess()
   }
@@ -28,7 +26,7 @@ export default function KreirajKucanstvo({ onClose, onSuccess }) {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <h2>Kreiraj kućanstvo</h2>
+        <h2>Kreiraj kucanstvo</h2>
 
         <form onSubmit={handleSubmit}>
           <input
@@ -37,11 +35,9 @@ export default function KreirajKucanstvo({ onClose, onSuccess }) {
             value={naziv}
             onChange={(e) => setNaziv(e.target.value)}
             required
-            autoFocus
-          />
+            autoFocus/>
 
           {error && <p className="message">{error}</p>}
-
           <div className="modal-actions">
             <button type="button" className="secondary" onClick={onClose}>
               Odustani

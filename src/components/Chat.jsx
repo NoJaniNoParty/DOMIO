@@ -8,11 +8,11 @@ export default function Chat({ kucanstvoId, session }) {
   const [salje, setSalje] = useState(false)
   const porukeKraj = useRef(null)
 
-  // Učitavanje poruka i realtime subscription
+  // Ucitavanje poruka i realtime sub
   useEffect(() => {
     let aktivan = true
 
-    // 1. Učitaj postojeće poruke
+    // Ucitaj poruke
     const ucitajPoruke = async () => {
       const { data, error } = await supabase
         .from('poruke')
@@ -41,7 +41,7 @@ export default function Chat({ kucanstvoId, session }) {
 
     ucitajPoruke()
 
-    // 2. Subscribe na nove poruke (REALTIME!)
+    // Sub na nove poruke
     const channel = supabase
       .channel(`chat-${kucanstvoId}`)
       .on(
@@ -53,7 +53,7 @@ export default function Chat({ kucanstvoId, session }) {
           filter: `kucanstvo_id=eq.${kucanstvoId}`
         },
         async (payload) => {
-          // Kad stigne nova poruka, dohvati podatke pošiljatelja
+          // Kad stigne nova poruka dohvati datu posiljatelja
           const { data: profil } = await supabase
             .from('profili')
             .select('ime, email')
@@ -70,14 +70,14 @@ export default function Chat({ kucanstvoId, session }) {
       )
       .subscribe()
 
-    // Cleanup pri napuštanju komponente
+    // Cleanup kad izlazis
     return () => {
       aktivan = false
       supabase.removeChannel(channel)
     }
   }, [kucanstvoId])
 
-  // Auto-scroll na dno kad stigne nova poruka
+  // 
   useEffect(() => {
     porukeKraj.current?.scrollIntoView({ behavior: 'smooth' })
   }, [poruke])
@@ -118,10 +118,7 @@ export default function Chat({ kucanstvoId, session }) {
     <div className="chat">
       <div className="chat-poruke">
         {loading ? (
-          <p className="empty">Učitavanje poruka...</p>
-        ) : poruke.length === 0 ? (
-          <p className="empty">Još nema poruka. Budi prvi! 👋</p>
-        ) : (
+          <p className="empty">Ucitavanje poruka...</p>) : poruke.length === 0 ? (<p className="empty">Jos nema poruka. Budi prvi!</p>) : (
           poruke.map((poruka) => {
             const jeMoja = poruka.posiljatelj_id === session.user.id
             const ime = poruka.profili?.ime || poruka.profili?.email || 'Nepoznat'
@@ -138,7 +135,7 @@ export default function Chat({ kucanstvoId, session }) {
             )
           })
         )}
-        <div ref={porukeKraj} />
+        <div ref={porukeKraj}/>
       </div>
 
       <form className="chat-form" onSubmit={posaljiPoruku}>
@@ -148,10 +145,9 @@ export default function Chat({ kucanstvoId, session }) {
           value={novaPoruka}
           onChange={(e) => setNovaPoruka(e.target.value)}
           disabled={salje}
-          autoFocus
-        />
+          autoFocus/>
         <button type="submit" disabled={salje || !novaPoruka.trim()}>
-          {salje ? '...' : 'Pošalji'}
+          {salje ? '...' : 'Posalji'}
         </button>
       </form>
     </div>
