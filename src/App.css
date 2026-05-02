@@ -1,8 +1,5 @@
-/* ========================================
-   DOMIO - APLIKACIJA ZA KUĆANSTVO
-   ======================================== */
 
-/* ===== VARIJABLE ===== */
+
 :root {
   --primary: #6366f1;
   --primary-dark: #4f46e5;
@@ -42,11 +39,15 @@
   --radius-sm: 6px;
   --radius: 10px;
   --radius-lg: 14px;
+  display: flex ;
+  align-items: center;
+  justify-content: center;
+  
 
   --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ===== RESET ===== */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -76,7 +77,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ===== ANIMACIJE ===== */
+/* ------------ ANIMACIJE---------------*/
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -92,9 +93,9 @@ body {
   50% { opacity: 0.6; }
 }
 
-/* ===== KONTEJNER ===== */
+/* ------------ KONTEJNER---------------*/
 .container {
-  background: var(--bg-card);
+  
   padding: 36px 32px;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
@@ -105,10 +106,12 @@ body {
 }
 
 .container-wide {
-  max-width: 800px;
+  max-width: 100%;
+  text-align: center;
+  
 }
 
-/* ===== TIPOGRAFIJA ===== */
+/* ------------ TIPOGRAFIJA---------------*/
 h1 {
   text-align: center;
   margin-bottom: 6px;
@@ -143,7 +146,7 @@ strong {
   font-weight: 600;
 }
 
-/* ===== FORME ===== */
+/* ------------ FORME---------------*/
 form {
   display: flex;
   flex-direction: column;
@@ -204,7 +207,7 @@ input[type="checkbox"] {
   accent-color: var(--primary);
 }
 
-/* ===== DUGMAD ===== */
+/* ------------ BUTTONI---------------*/
 button {
   padding: 11px 18px;
   background: var(--primary);
@@ -262,7 +265,7 @@ button.secondary:hover:not(:disabled) {
   box-shadow: none;
 }
 
-/* ===== PORUKE ===== */
+/* ------------ PORUKE---------------*/
 .message {
   text-align: center;
   padding: 12px 16px;
@@ -274,7 +277,7 @@ button.secondary:hover:not(:disabled) {
   border: 1px solid var(--warning-soft);
 }
 
-/* ===== HEADER ===== */
+/* ------------ HEADER---------------*/
 .header {
   display: flex;
   justify-content: space-between;
@@ -305,7 +308,7 @@ button.secondary:hover:not(:disabled) {
   border: 1px solid var(--primary-soft);
 }
 
-/* ===== KUCANSTVA LISTA ===== */
+/* ------------ LISTA KUCANSTVA---------------*/
 .kucanstva-lista {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -364,7 +367,7 @@ button.secondary:hover:not(:disabled) {
   display: inline-block;
 }
 
-/* ===== EMPTY STATE ===== */
+/* ------------ PRAZNO---------------*/
 .empty {
   text-align: center;
   padding: 48px 24px;
@@ -385,7 +388,7 @@ button.secondary:hover:not(:disabled) {
   font-style: italic;
 }
 
-/* ===== DASHBOARD AKCIJE ===== */
+/* ------------ DASH OPCIJE---------------*/
 .dashboard-actions {
   display: flex;
   gap: 10px;
@@ -395,7 +398,7 @@ button.secondary:hover:not(:disabled) {
   flex: 1;
 }
 
-/* ===== MODAL ===== */
+/* ------------ MODAL---------------*/
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -471,7 +474,7 @@ button.secondary:hover:not(:disabled) {
   cursor: pointer;
 }
 
-/* ===== POZIVNI KOD DISPLAY ===== */
+/* ------------ INV CODE---------------*/
 .kod-display {
   text-align: center;
   background: var(--primary-light);
@@ -491,7 +494,7 @@ button.secondary:hover:not(:disabled) {
   font-size: 14px;
 }
 
-/* ===== TABOVI ===== */
+/* ------------ TABS---------------*/
 .tabovi {
   display: flex;
   gap: 4px;
@@ -532,8 +535,7 @@ button.secondary:hover:not(:disabled) {
 .tab-content {
   min-height: 400px;
 }
-
-/* ===== CHAT ===== */
+/* ------------ CHAT---------------*/
 .chat {
   display: flex;
   flex-direction: column;
@@ -614,7 +616,7 @@ button.secondary:hover:not(:disabled) {
   padding: 11px 22px;
 }
 
-/* ===== ZADACI ===== */
+/* ------------ZADACI---------------*/
 .zadaci {
   display: flex;
   flex-direction: column;
@@ -813,7 +815,7 @@ button.secondary:hover:not(:disabled) {
   flex-shrink: 0;
 }
 
-/* ===== KALENDAR ===== */
+/* ------------ KALENDAR---------------*/
 .kalendar {
   display: flex;
   flex-direction: column;
@@ -888,7 +890,7 @@ button.secondary:hover:not(:disabled) {
   border-radius: var(--radius-sm);
 }
 
-/* ===== FINANCIJE ===== */
+/* ------------ FINANCIJE---------------*/
 .financije {
   display: flex;
   flex-direction: column;
@@ -1098,7 +1100,7 @@ button.secondary:hover:not(:disabled) {
   letter-spacing: -0.3px;
 }
 
-/* ===== RESPONSIVE - MOBITEL ===== */
+/* ------------ RESPONSIVE---------------*/
 @media (max-width: 600px) {
   body {
     padding: 0;
