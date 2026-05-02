@@ -94,22 +94,19 @@ export default function Dashboard({ session }) {
       <p className="welcome">Bok, <strong>{session.user.email}</strong>!</p>
 
       <h2>Tvoja kucanstva</h2>
-
-      {loading ? (
-        <p>Ucitavanje...</p>
-      ) : kucanstva.length === 0 ? (
-        <p className="empty">Nemas jos kucanstava. Kreiraj novo ili se pridruzi postojecem!</p>
-      ) : (
+      {loading ? (<p>Ucitavanje...</p>) : kucanstva.length === 0 ? (
+        <p className="empty">Nemas jos kucanstava. Kreiraj novo ili se pridruzi postojecem!</p>) 
+        : (
         <div className="kucanstva-lista">
-          {kucanstva.map((clan) => (
+          {/*aaaaa ovo je bilo mukotrpno*/}
+          {kucanstva.map((kucanstvo) => (
             <div
-              key={clan.kucanstva.id}
+              key={kucanstvo.kucanstva.id}
               className="kucanstvo-card"
-              onClick={() => setAktivnoKucanstvo(clan.kucanstva)}
-            >
-              <h3>{clan.kucanstva.naziv}</h3>
-              <p>Uloga: <strong>{clan.uloga}</strong></p>
-              <p className="kod">Kod: {clan.kucanstva.pozivni_kod}</p>
+              onClick={() => setAktivnoKucanstvo(kucanstvo.kucanstva)}>
+              <h3>{kucanstvo.kucanstva.naziv}</h3>
+              <p>Uloga: <strong>{kucanstvo.uloga}</strong></p>
+              <p className="kod">Kod: {kucanstvo.kucanstva.pozivni_kod}</p>
             </div>
           ))}
         </div>
