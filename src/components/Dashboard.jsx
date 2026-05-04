@@ -35,7 +35,7 @@ export default function Dashboard({ session }) {
     setLoading(false)
   }
 
-  // ucitaj kucanstva kad se pokrene
+  // ucitaj kucanstva prvi put
   useEffect(() => {
     let aktivan = true
 
@@ -54,7 +54,7 @@ export default function Dashboard({ session }) {
 
       if (!aktivan) return
 
-        if (error) {
+      if (error) {
         console.error('Greska pri ucitavanju:', error)
       } else {
         setKucanstva(data)
@@ -63,10 +63,11 @@ export default function Dashboard({ session }) {
     }
 
     dohvati()
-
+    //cleanup stare komponente
     return () => { aktivan = false }
   }, [session.user.id])
 
+    //onAuthStateChange listener detektira promjenu
   const handleLogout = async () => {
     await supabase.auth.signOut()
   }
@@ -79,6 +80,7 @@ export default function Dashboard({ session }) {
         kucanstvo={aktivnoKucanstvo}
         session={session}
         onBack={() => {setAktivnoKucanstvo(null)
+          // ponovno ucitavanje u slucaju da je korisnik izasao iz trenutnog kucanstva
           ucitajKucanstva()
         }}/>
     )
@@ -95,10 +97,11 @@ export default function Dashboard({ session }) {
 
       <h2>Tvoja kucanstva</h2>
       {loading ? (<p>Ucitavanje...</p>) : kucanstva.length === 0 ? (
-        <p className="empty">Nemas jos kucanstava. Kreiraj novo ili se pridruzi postojecem!</p>) 
-        : (
+        <p className="empty">Nemas jos kucanstava. Kreiraj novo ili se pridruzi postojecem!</p>) : ( 
         <div className="kucanstva-lista">
-          {/*aaaaa ovo je bilo mukotrpno*/}
+          {/*aaaaa ovo je bilo mukotrpno
+          kucanstva.kucanstvo.kucanstva -> lista, element, tablica
+          */}
           {kucanstva.map((kucanstvo) => (
             <div
               key={kucanstvo.kucanstva.id}
@@ -113,17 +116,15 @@ export default function Dashboard({ session }) {
       )}
 
       <div className="dashboard-actions">
-        <button onClick={() => setShowKreiraj(true)}>
-          + Kreiraj kucanstvo
+        <button onClick={() => setShowKreiraj(true)}>+ Kreiraj kucanstvo
         </button>
-        <button className="secondary" onClick={() => setShowPridruzi(true)}>
-          Pridruzi se
+        <button className="secondary" onClick={() => setShowPridruzi(true)}>Pridruzi se
         </button>
       </div>
 
       {showKreiraj && (
         <KreirajKucanstvo
-          session={session}
+          //session={session}
           onClose={() => setShowKreiraj(false)}
           onSuccess={() => {
             setShowKreiraj(false)

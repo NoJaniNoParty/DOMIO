@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { supabase } from '../supabaseClient'
 
 export default function Auth() {
+  //ovo sam mogao u jedan objekt ali nema puno polja pa moze ovako
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [ime, setIme] = useState('')
@@ -9,11 +10,13 @@ export default function Auth() {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
 
+  
+
   const handleRegister = async (e) => {
     e.preventDefault()
     setLoading(true)
     setMessage('')
-
+    //vrati samo error ako postoji
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -54,6 +57,7 @@ export default function Auth() {
       <h2>{isRegister ? 'Registracija' : 'Prijava'}</h2>
 
       <form onSubmit={isRegister ? handleRegister : handleLogin}>
+        {/*ako je true renderiraj element inace skip*/}
         {isRegister && (
           <input
             type="text"
@@ -83,8 +87,10 @@ export default function Auth() {
       {message && <p className="message">{message}</p>}
 
       <p>
+        {/*ne brisi prazno to je razmak*/}
         {isRegister ? 'Vec imas racun?' : 'Nemas racun?'}{' '}
         <button
+        //izbjegni submit - definiraj tip
           type="button"
           className="link"
           onClick={() => {
