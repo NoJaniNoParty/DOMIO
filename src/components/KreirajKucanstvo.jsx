@@ -7,12 +7,7 @@ export default function KreirajKucanstvo({ onClose, onSuccess }) {
   const [error, setError] = useState('')
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!naziv.trim()){
-      setError("Naziv ne može biti prazno polje") 
-      return
-    }
-      
+    e.preventDefault()  
     setLoading(true)
     setError('')
 
@@ -41,7 +36,7 @@ export default function KreirajKucanstvo({ onClose, onSuccess }) {
           <input
             type="text"
             placeholder="Naziv (npr. 'Stan u Zagrebu')"
-            value={naziv}
+            value={naziv.trim()}
             onChange={(e) => setNaziv(e.target.value)}
             required
             autoFocus/>

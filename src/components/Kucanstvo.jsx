@@ -16,11 +16,12 @@ export default function Kucanstvo({ kucanstvo, session, onBack }) {
     const potvrda = confirm(
       'Sigurno zelis napustiti ovo kucanstvo?\n\n' +
       'Ako si vlasnik, vlasnistvo ce preci na prvog clana po redu pridruzivanja.\n' +
-      'Ako si jedini clan, kucanstvo i svi podaci ce biti obrisani.'
-    )
+      'Ako si jedini clan, kucanstvo i svi podaci ce biti obrisani.')
+
     if (!potvrda) return
 
     const { error } = await supabase
+    //rpc zbog atomarnosti - sve u jednoj transakciji na bazi
       .rpc('napusti_kucanstvo', { p_kucanstvo_id: kucanstvo.id })
 
     if (error) {
@@ -41,6 +42,7 @@ export default function Kucanstvo({ kucanstvo, session, onBack }) {
     <div className="container container-wide">
       <div className="header">
         <button className="link" onClick={onBack}>Natrag</button>
+        {/*DODAJ STYLE KLASU ZA OVO */}
         <div style={{ display: 'flex', gap: 8 }}>
           <button className="secondary" onClick={napustiKucanstvo}>Napusti
           </button>
@@ -49,8 +51,7 @@ export default function Kucanstvo({ kucanstvo, session, onBack }) {
       </div>
 
       <h1>{kucanstvo.naziv}</h1>
-      <p className="kod-display">
-        Pozivni kod: <strong>{kucanstvo.pozivni_kod}</strong>
+      <p className="kod-display">Pozivni kod: <strong>{kucanstvo.pozivni_kod}</strong>
       </p>
 
       <div className="tabovi">

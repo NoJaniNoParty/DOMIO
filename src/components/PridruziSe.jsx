@@ -12,7 +12,7 @@ export default function PridruziSe({onClose, onSuccess }) {
     setError('')
 
     const { error: errFunkcija } = await supabase
-      .rpc('pridruzi_se_kucanstvu', { p_kod: kod })
+      .rpc('pridruzi_se_kucanstvu', { p_kod: kod.toUpperCase() })
 
     if (errFunkcija) {
       let poruka = errFunkcija.message
@@ -45,20 +45,18 @@ export default function PridruziSe({onClose, onSuccess }) {
           <input
             type="text"
             placeholder="Pozivni kod (6 znakova)"
-            value={kod}
+            value={kod.trim()}
             onChange={(e) => setKod(e.target.value.toUpperCase())}
             maxLength={6}
             required
-            autoFocus
-            style={{textTransform: 'uppercase', letterSpacing: 4, textAlign: 'center', fontSize: 18}}/>
+            autoFocus/>
 
           {error && <p className="message">{error}</p>}
 
           <div className="modal-actions">
-            <button type="button" className="secondary" onClick={onClose}>
-              Odustani
+            <button type="button" className="secondary" onClick={onClose}>Odustani
             </button>
-            <button type="submit" disabled={loading}>
+            <button type="submit" disabled={loading}> 
               {loading ? 'Pridruzujem...' : 'Pridruzi se'}
             </button>
           </div>
