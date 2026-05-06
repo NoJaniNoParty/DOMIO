@@ -34,6 +34,7 @@ export default function Chat({ kucanstvoId, session }) {
       if (error) {
         console.error('Greska pri ucitavanju poruka:', error)
       } else {
+        // ako nema poruka vrati prazan array
         setPoruke(data || [])
       }
       setLoading(false)
@@ -43,6 +44,7 @@ export default function Chat({ kucanstvoId, session }) {
 
     // Sub na nove poruke
     const channel = supabase
+    //websocket tunnel
       .channel(`chat-${kucanstvoId}`)
       .on(
         'postgres_changes',
@@ -64,21 +66,22 @@ export default function Chat({ kucanstvoId, session }) {
             ...payload.new,
             profili: profil
           }
-
-          setPoruke((prev) => [...prev, novaPorukaObj])
+          // prev dodajem da daje najnoviju verziju statea
+          setPoruke(prev => [...prev, novaPorukaObj])
         }
-      )
-      .subscribe()
+      ).subscribe()
 
     // Cleanup kad izlazis
     return () => {
       aktivan = false
+      //remove za memory leak i duple notifikacije
       supabase.removeChannel(channel)
     }
   }, [kucanstvoId])
 
   // 
   useEffect(() => {
+    //  safe access - ako div jos nije loadan skipaj ne bacaj gresku
     porukeKraj.current?.scrollIntoView({ behavior: 'smooth' })
   }, [poruke])
 
@@ -86,14 +89,18 @@ export default function Chat({ kucanstvoId, session }) {
     e.preventDefault()
     if (!novaPoruka.trim()) return
 
-    setSalje(true)
 
+    setSalje(true)
+    // UX da chat input odma postane prazan
+    const tekst = novaPoruka.trim()
+    setNovaPoruka('')
+    // moze insert jer je korisnik vec clan
     const { error } = await supabase
       .from('poruke')
       .insert({
         kucanstvo_id: kucanstvoId,
         posiljatelj_id: session.user.id,
-        sadrzaj: novaPoruka.trim()
+        sadrzaj: tekst
       })
 
     if (error) {
@@ -105,7 +112,7 @@ export default function Chat({ kucanstvoId, session }) {
 
     setSalje(false)
   }
-
+  //timestamp u lijep format
   const formatVrijeme = (timestamp) => {
     const datum = new Date(timestamp)
     return datum.toLocaleTimeString('hr-HR', {
@@ -113,21 +120,22 @@ export default function Chat({ kucanstvoId, session }) {
       minute: '2-digit'
     })
   }
-
+  // UX da nema input polja na load
+if (loading) return <p className="empty">Učitavanje poruka...</p>
   return (
     <div className="chat">
       <div className="chat-poruke">
         {loading ? (
           <p className="empty">Ucitavanje poruka...</p>) : poruke.length === 0 ? (<p className="empty">Jos nema poruka. Budi prvi!</p>) : (
-          poruke.map((poruka) => {
+          poruke.map(poruka => {
             const jeMoja = poruka.posiljatelj_id === session.user.id
+            //ime ako postoji ako ne onda mail ako ne onda nepoznat
             const ime = poruka.profili?.ime || poruka.profili?.email || 'Nepoznat'
 
             return (
               <div
                 key={poruka.id}
-                className={`poruka ${jeMoja ? 'moja' : 'tudja'}`}
-              >
+                className={`poruka ${jeMoja ? 'moja' : 'tudja'}`}>
                 {!jeMoja && <div className="poruka-ime">{ime}</div>}
                 <div className="poruka-sadrzaj">{poruka.sadrzaj}</div>
                 <div className="poruka-vrijeme">{formatVrijeme(poruka.poslano_u)}</div>
@@ -146,7 +154,7 @@ export default function Chat({ kucanstvoId, session }) {
           onChange={(e) => setNovaPoruka(e.target.value)}
           disabled={salje}
           autoFocus/>
-        <button type="submit" disabled={salje || !novaPoruka.trim()}>
+        <button type="submit" disabled={!novaPoruka.trim()}>
           {salje ? '...' : 'Posalji'}
         </button>
       </form>
