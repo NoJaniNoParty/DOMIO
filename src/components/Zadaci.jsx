@@ -12,6 +12,8 @@ export default function Zadaci({ kucanstvoId, session }) {
   const [noviRok, setNoviRok] = useState('')
   const [noviDodijeljen, setNoviDodijeljen] = useState('')
 
+  const [editDodjelaId, setEditDodjelaId] = useState(null)
+
   
   const ucitajPodatke = async () => {
     const { data: listeData } = await supabase
@@ -180,6 +182,18 @@ export default function Zadaci({ kucanstvoId, session }) {
 
     if (error) alert('Greska: ' + error.message)
   }
+  const promijeniDodjelu = async (zadatakId, noviKorisnikId) => {
+    const { error } = await supabase
+      .from('zadaci')
+      .update({ dodijeljeno: noviKorisnikId || null })
+      .eq('id', zadatakId)
+
+    if (error) {
+      alert('Greska: ' + error.message)
+    }
+  
+    setEditDodjelaId(null)  // Zatvori dropdown
+  }
 
  
   const formatDatum = (datum) => {
@@ -244,16 +258,34 @@ export default function Zadaci({ kucanstvoId, session }) {
                           <div className="zadatak-info">
                             <div className="zadatak-naziv">{zadatak.naziv}</div>
                             <div className="zadatak-meta">
-                              {zadatak.profili && (
-                                <span className="meta-tag">
-                                   {zadatak.profili.ime || zadatak.profili.email}
-                                </span>
-                              )}
-                              {zadatak.rok && (
-                                <span className={`meta-tag ${rokProsao(zadatak.rok, zadatak.zavrseno) ? 'rok-kasni' : ''}`}>
-                                   {formatDatum(zadatak.rok)}
-                                </span>
-                              )}
+                              
+                              {editDodjelaId === zadatak.id ? (
+                                <select
+                                  value={zadatak.dodijeljeno || ''}
+                                  onChange={(e) => promijeniDodjelu(zadatak.id, e.target.value)}
+                                  onBlur={() => setEditDodjelaId(null)}
+                                  autoFocus
+                                  className="dodjela-select">
+                                  <option value="">Bez dodjele</option>
+                                  {clanovi.map(c => (
+                                    <option key={c.korisnik_id} value={c.korisnik_id}>
+                                    {c.profili?.ime || c.profili?.email}
+                                    </option>
+                                  ))}
+                                  </select>) : (
+                                  <span 
+                                    className="meta-tag dodjela-tag" 
+                                    onClick={() => setEditDodjelaId(zadatak.id)}
+                                    title="Klikni za promjenu dodjele">
+                                    {zadatak.profili ? (zadatak.profili.ime || zadatak.profili.email) : 
+                                    'Bez dodjele'}
+                                  </span>)}
+
+                                  {zadatak.rok && (
+                                    <span className={`meta-tag ${rokProsao(zadatak.rok, zadatak.zavrseno) ? 'rok-kasni' : ''}`}>
+                                     {formatDatum(zadatak.rok)}
+                                    </span>
+                                  )}
                             </div>
                           </div>
                           <button

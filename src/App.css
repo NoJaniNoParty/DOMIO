@@ -1174,9 +1174,20 @@ button.secondary:hover:not(:disabled) {
 
 .kucanstvo-info .clanovi-btn {
   width: auto;
-  padding: 10px 16px;
+  height: 100%;
+ 
   font-size: 13px;
   white-space: nowrap;
+   text-align: center;
+  background: var(--primary-light);
+ 
+  border-radius: var(--radius);
+
+  font-family: 'SF Mono', Monaco, monospace;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  border: 1px solid var(--primary-soft);
 }
 
 .kucanstvo-info .kod-display {
@@ -1234,6 +1245,10 @@ button.secondary:hover:not(:disabled) {
   gap: 6px;
   flex-wrap: wrap;
   justify-content: center;
+  
+ 
+ 
+
 }
 
 .uloga-tag {
