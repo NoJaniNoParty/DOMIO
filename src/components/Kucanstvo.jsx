@@ -4,9 +4,11 @@ import Chat from './Chat'
 import Zadaci from './Zadaci'
 import Kalendar from './Kalendar'
 import Financije from './Financije'
+import Clanovi from './Clanovi'
 
 export default function Kucanstvo({ kucanstvo, session, onBack }) {
   const [aktivniTab, setAktivniTab] = useState('chat')
+  const [showClanovi, setShowClanovi] = useState(false)
 
   const handleLogout = async () => {
     await supabase.auth.signOut()
@@ -51,8 +53,12 @@ export default function Kucanstvo({ kucanstvo, session, onBack }) {
       </div>
 
       <h1>{kucanstvo.naziv}</h1>
-      <p className="kod-display">Pozivni kod: <strong>{kucanstvo.pozivni_kod}</strong>
-      </p>
+   <div className="kucanstvo-info">
+     <button className="secondary clanovi-btn" onClick={() => setShowClanovi(true)}>Članovi
+     </button>
+     <p className="kod-display">Pozivni kod: <strong>{kucanstvo.pozivni_kod}</strong>
+     </p>
+  </div>
 
       <div className="tabovi">
         {tabovi.map(tab => (
@@ -71,6 +77,13 @@ export default function Kucanstvo({ kucanstvo, session, onBack }) {
         {aktivniTab === 'kalendar' && <Kalendar kucanstvoId={kucanstvo.id} session={session} />}
         {aktivniTab === 'financije' && <Financije kucanstvoId={kucanstvo.id} session={session} />}
       </div>
+      {showClanovi && (
+  <Clanovi
+    kucanstvoId={kucanstvo.id}
+    session={session}
+    onClose={() => setShowClanovi(false)}
+  />
+)}
     </div>
   )
 }

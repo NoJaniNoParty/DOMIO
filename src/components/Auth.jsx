@@ -21,7 +21,8 @@ export default function Auth() {
       email,
       password,
       options: {
-        data: { ime: ime }
+        data: {ime: ime}
+        
       }
     })
 

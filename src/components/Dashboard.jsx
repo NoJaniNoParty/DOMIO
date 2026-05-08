@@ -93,7 +93,7 @@ export default function Dashboard({ session }) {
         <button onClick={handleLogout}>Odjavi se</button>
       </div>
 
-      <p className="welcome">Bok, <strong>{session.user.email}</strong>!</p>
+      <p className="welcome">Bok, <strong>{session.user.user_metadata.ime}</strong>!</p>
 
       <h2>Tvoja kucanstva</h2>
       {loading ? (<p>Ucitavanje...</p>) : kucanstva.length === 0 ? (
@@ -116,10 +116,8 @@ export default function Dashboard({ session }) {
       )}
 
       <div className="dashboard-actions">
-        <button onClick={() => setShowKreiraj(true)}>+ Kreiraj kucanstvo
-        </button>
-        <button className="secondary" onClick={() => setShowPridruzi(true)}>Pridruzi se
-        </button>
+        <button onClick={() => setShowKreiraj(true)}>+ Kreiraj kucanstvo</button>
+        <button className="secondary" onClick={() => setShowPridruzi(true)}>Pridruzi se</button>
       </div>
 
       {showKreiraj && (
