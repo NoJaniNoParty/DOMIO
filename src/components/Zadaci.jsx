@@ -11,17 +11,17 @@ export default function Zadaci({ kucanstvoId, session }) {
   const [noviZadatak, setNoviZadatak] = useState('')
   const [noviRok, setNoviRok] = useState('')
   const [noviDodijeljen, setNoviDodijeljen] = useState('')
-
   const [editDodjelaId, setEditDodjelaId] = useState(null)
 
-  
+  //ne loadaj clanove svaki put nepotrebno je
   const ucitajPodatke = async () => {
+    //sve liste otvorenog kucanstva
     const { data: listeData } = await supabase
       .from('liste_zadataka')
       .select('*')
       .eq('kucanstvo_id', kucanstvoId)
       .order('stvoren_u', { ascending: true })
-
+    //svi zadaci assignani na te liste
     const listaIds = (listeData || []).map(l => l.id)
     let zadaciData = []
     if (listaIds.length > 0) {
@@ -34,7 +34,7 @@ export default function Zadaci({ kucanstvoId, session }) {
     }
 
     setListe(listeData || [])
-
+    //pogledaj jel postoji lista sa idjem zadatka, ako ne stvori praznu
     const grupirano = {}
     zadaciData.forEach(z => {
       if (!grupirano[z.lista_id]) grupirano[z.lista_id] = []
@@ -101,9 +101,9 @@ export default function Zadaci({ kucanstvoId, session }) {
       )
       .subscribe()
 
-    return () => {
-      aktivan = false
-      supabase.removeChannel(channel)
+      return () => {
+        aktivan = false
+        supabase.removeChannel(channel)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [kucanstvoId])
@@ -128,7 +128,7 @@ export default function Zadaci({ kucanstvoId, session }) {
     }
   }
 
- 
+ //pitanje
   const obrisiListu = async (listaId) => {
     if (!confirm('Sigurno obrisati listu i sve njene zadatke?')) return
 
@@ -141,7 +141,7 @@ export default function Zadaci({ kucanstvoId, session }) {
     if (otvorenaLista === listaId) setOtvorenaLista(null)
   }
 
-  
+  //rok i dodijeljeno ne mora biti ispunjeno
   const dodajZadatak = async (listaId) => {
     if (!noviZadatak.trim()) return
 
@@ -170,7 +170,7 @@ export default function Zadaci({ kucanstvoId, session }) {
       .update({ zavrseno: !zadatak.zavrseno })
       .eq('id', zadatak.id)
 
-    if (error) alert('Greska: ' + error.message)
+      if (error) alert('Greska: ' + error.message)
   }
 
   
@@ -180,7 +180,7 @@ export default function Zadaci({ kucanstvoId, session }) {
       .delete()
       .eq('id', zadatakId)
 
-    if (error) alert('Greska: ' + error.message)
+      if (error) alert('Greska: ' + error.message)
   }
   const promijeniDodjelu = async (zadatakId, noviKorisnikId) => {
     const { error } = await supabase
@@ -188,11 +188,11 @@ export default function Zadaci({ kucanstvoId, session }) {
       .update({ dodijeljeno: noviKorisnikId || null })
       .eq('id', zadatakId)
 
-    if (error) {
-      alert('Greska: ' + error.message)
-    }
-  
-    setEditDodjelaId(null)  // Zatvori dropdown
+      if (error) {
+        alert('Greska: ' + error.message)
+      }
+  // zatvori prozor
+      setEditDodjelaId(null)  
   }
 
  
@@ -203,6 +203,7 @@ export default function Zadaci({ kucanstvoId, session }) {
   }
 
   
+  //vrati ako zadatak nije gotov do roka
   const rokProsao = (rok, zavrseno) => {
     if (!rok || zavrseno) return false
     const danas = new Date()
@@ -250,15 +251,14 @@ export default function Zadaci({ kucanstvoId, session }) {
                       <p className="empty-mali">Nema zadataka u ovoj listi.</p>) : (listaZadaci.map(zadatak => (
                         <div
                           key={zadatak.id}
-                          className={`zadatak ${zadatak.zavrseno ? 'gotov' : ''} ${rokProsao(zadatak.rok, zadatak.zavrseno) ? 'kasni' : ''}`}>
+                          className={`zadatak ${zadatak.zavrseno ? 'gotov' : ''}${rokProsao(zadatak.rok, zadatak.zavrseno) ? 'kasni' : ''}`}>
                           <input
                             type="checkbox"
                             checked={zadatak.zavrseno}
                             onChange={() => toggleGotovo(zadatak)}/>
                           <div className="zadatak-info">
                             <div className="zadatak-naziv">{zadatak.naziv}</div>
-                            <div className="zadatak-meta">
-                              
+                            <div className="zadatak-meta">        
                               {editDodjelaId === zadatak.id ? (
                                 <select
                                   value={zadatak.dodijeljeno || ''}
@@ -267,18 +267,17 @@ export default function Zadaci({ kucanstvoId, session }) {
                                   autoFocus
                                   className="dodjela-select">
                                   <option value="">Bez dodjele</option>
-                                  {clanovi.map(c => (
-                                    <option key={c.korisnik_id} value={c.korisnik_id}>
-                                    {c.profili?.ime || c.profili?.email}
-                                    </option>
+                                    {clanovi.map(c => (
+                                      <option key={c.korisnik_id} value={c.korisnik_id}>
+                                        {c.profili.ime}
+                                      </option>
                                   ))}
                                   </select>) : (
                                   <span 
                                     className="meta-tag dodjela-tag" 
                                     onClick={() => setEditDodjelaId(zadatak.id)}
                                     title="Klikni za promjenu dodjele">
-                                    {zadatak.profili ? (zadatak.profili.ime || zadatak.profili.email) : 
-                                    'Bez dodjele'}
+                                    {zadatak.profili ? zadatak.profili.ime : 'Bez dodjele'}
                                   </span>)}
 
                                   {zadatak.rok && (
@@ -286,11 +285,11 @@ export default function Zadaci({ kucanstvoId, session }) {
                                      {formatDatum(zadatak.rok)}
                                     </span>
                                   )}
-                            </div>
+                              </div>
                           </div>
                           <button
                             className="link delete-btn"
-                            onClick={() => obrisiZadatak(zadatak.id)}>x
+                            onClick={() => obrisiZadatak(zadatak.id)}>X
                           </button>
                         </div>
                       ))
@@ -298,11 +297,12 @@ export default function Zadaci({ kucanstvoId, session }) {
 
                     
                     <div className="novi-zadatak-forma">
-                      <input
-                        type="text"
-                        placeholder="Novi zadatak..."
-                        value={otvorena ? noviZadatak : ''}
-                        onChange={(e) => setNoviZadatak(e.target.value)}/>
+                        <input
+                          type="text"
+                          placeholder="Novi zadatak..."
+                          //RESETIRANJE AKO SE OTVORI JEDNA NAKON DRUGE KOJA IMA TEKST U SEBI
+                          value={otvorena ? noviZadatak : ''}
+                         onChange={(e) => setNoviZadatak(e.target.value)}/>
                       <div className="novi-zadatak-meta">
                         <input
                           type="date"
@@ -315,7 +315,7 @@ export default function Zadaci({ kucanstvoId, session }) {
                           <option value="">Nije dodijeljeno</option>
                           {clanovi.map(c => (
                             <option key={c.korisnik_id} value={c.korisnik_id}>
-                              {c.profili.ime || c.profili.email}
+                              {c.profili.ime}
                             </option>
                           ))}
                         </select>
