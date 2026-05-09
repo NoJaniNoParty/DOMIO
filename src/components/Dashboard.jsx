@@ -88,8 +88,9 @@ export default function Dashboard({ session }) {
 
   return (
     <div className="container container-wide">
+      <div className='made-by'><h4>Izradio Daniel Stjepić</h4></div>
       <div className="header">
-        <h1>Domio</h1>
+          <h1>Domio</h1>
         <button onClick={handleLogout}>Odjavi se</button>
       </div>
 

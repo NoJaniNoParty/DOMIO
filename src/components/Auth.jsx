@@ -27,9 +27,9 @@ export default function Auth() {
     })
 
     if (error) {
-      setMessage('Greska: ' + error.message)
+      setMessage('Greška: ' + error.message)
     } else {
-      setMessage('Uspjesno! Sad se mozes prijaviti.')
+      setMessage('Uspješno! Sad se možeš prijaviti.')
       setIsRegister(false)
     }
     setLoading(false)
@@ -46,7 +46,7 @@ export default function Auth() {
     })
 
     if (error) {
-      setMessage('Greska: ' + error.message)
+      setMessage('Greška: ' + error.message)
     }
     setLoading(false)
   }

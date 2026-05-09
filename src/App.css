@@ -101,7 +101,7 @@ body {
 /* ------------ KONTEJNER---------------*/
 .container {
   
-  padding: 36px 32px;
+  padding: 10px 36px 32px 32px;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   width: 100%;
@@ -487,7 +487,7 @@ button.secondary:hover:not(:disabled) {
   border-radius: var(--radius);
   margin-bottom: 20px;
   font-family: 'SF Mono', Monaco, monospace;
-  letter-spacing: 2px;
+  
   color: var(--text-secondary);
   font-size: 13px;
   border: 1px solid var(--primary-soft);
@@ -1178,15 +1178,15 @@ button.secondary:hover:not(:disabled) {
  
   font-size: 13px;
   white-space: nowrap;
-   text-align: center;
+  text-align: center;
   background: var(--primary-light);
  
   border-radius: var(--radius);
 
   font-family: 'SF Mono', Monaco, monospace;
-  letter-spacing: 2px;
+  
   color: var(--text-secondary);
-  font-size: 13px;
+  font-size: 15px;
   border: 1px solid var(--primary-soft);
 }
 
@@ -1284,4 +1284,8 @@ button.secondary:hover:not(:disabled) {
   .kucanstvo-info .kod-display {
     text-align: center;
   }
+}
+
+.madeby{
+  display: flex;
 }
