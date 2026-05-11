@@ -119,3 +119,7 @@ code {
    font-size: 10px;
    color: var(--social-bg);
 }
+
+.opasiti{
+  opacity: 0.6 
+}
