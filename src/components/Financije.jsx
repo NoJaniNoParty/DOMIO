@@ -19,7 +19,7 @@ export default function Financije({ kucanstvoId }) {
   const [showTrosakModal, setShowTrosakModal] = useState(false)
   const [trosakIznos, setTrosakIznos] = useState('')
   const [trosakKategorija, setTrosakKategorija] = useState('')
-  const [trosakOpis, setTrosakOpis] = useState('')
+  const [trosakNaziv, setTrosakNaziv] = useState('')
   const [trosakDatum, setTrosakDatum] = useState(new Date().toISOString().split('T')[0])
 
   // reload
@@ -101,7 +101,8 @@ export default function Financije({ kucanstvoId }) {
       .from('proracuni')
       .insert({
         kucanstvo_id: kucanstvoId,
-        naziv: proracunNaziv.trim(),
+        
+        opis: proracunNaziv.trim(),
         kategorija: proracunKategorija.trim(),
         iznos: parseFloat(proracunIznos),
         period: proracunPeriod
@@ -133,7 +134,8 @@ export default function Financije({ kucanstvoId }) {
   const otvoriTrosakModal = () => {
     setTrosakIznos('')
     setTrosakKategorija('')
-    setTrosakOpis('')
+    setTrosakNaziv('')
+    // resetiraj datum na danasnji
     setTrosakDatum(new Date().toISOString().split('T')[0])
     setShowTrosakModal(true)
   }
@@ -148,7 +150,8 @@ export default function Financije({ kucanstvoId }) {
         //platio: session.user.id,
         iznos: parseFloat(trosakIznos),
         kategorija: trosakKategorija.trim(),
-        opis: trosakOpis.trim() || null,
+        //ostala pormjena opis
+        opis: trosakNaziv.trim(),
         datum: trosakDatum
       })
 
@@ -168,9 +171,9 @@ export default function Financije({ kucanstvoId }) {
       .eq('id', id)
 
     if (error) {
-      alert('Greska: ' + error.message)
+      alert('Greška: ' + error.message)
     } else {
-      setTroskovi(prev => prev.filter(t => t.id !== id))
+      setTroskovi(prev => prev.filter(p => p.id !== id))
     }
   }
 
@@ -191,9 +194,7 @@ export default function Financije({ kucanstvoId }) {
   const potrosenoZaProracun = (proracun) => {
     const sada = new Date()
     let pocetakPerioda
-    
-
-    
+  
     if (proracun.period === 'mjesecno') {
       pocetakPerioda = new Date(sada.getFullYear(), sada.getMonth(), 1)
     } else { 
@@ -208,6 +209,7 @@ export default function Financije({ kucanstvoId }) {
       .reduce((sum, t) => sum + parseFloat(t.iznos), 0)
   }
 
+
   // ukupno potroseno ovaj mjesec
   const ukupnoOvajMjesec = () => {
     const pocetakMjeseca = new Date(new Date().getFullYear(), new Date().getMonth(), 1)
@@ -217,6 +219,7 @@ export default function Financije({ kucanstvoId }) {
   }
 
   // lista kategorija
+  //kategorije se dinamicki kreiraju iz trenutnih
   const sveKategorije = [...new Set([
     ...proracuni.map(p => p.kategorija),
     ...troskovi.map(t => t.kategorija)
@@ -277,7 +280,7 @@ export default function Financije({ kucanstvoId }) {
                   <div className="proracun-header">
                     <div>
                       <strong>{proracun.naziv}</strong>
-                      <span className="meta-tag" style={{marginLeft: 8}}>{proracun.kategorija}</span>
+                      <span className="meta-tag">{proracun.kategorija}</span>
                     </div>
                     <div className="proracun-iznosi">
                       {formatIznos(potroseno)} / {formatIznos(limit)}
@@ -290,10 +293,10 @@ export default function Financije({ kucanstvoId }) {
                     />
                   </div>
                   {presao && (
-                    <div className="upozorenje">⚠️ Presao si proracun za {formatIznos(potroseno - limit)}!</div>
+                    <div className="upozorenje">Presao si proracun za {formatIznos(potroseno - limit)}!</div>
                   )}
                   {blizu && (
-                    <div className="upozorenje warn">⚠️ Iskoristio si {postotak.toFixed(0)}% proracuna</div>
+                    <div className="upozorenje warn">Iskoristio si {postotak.toFixed(0)}% proracuna</div>
                   )}
                 </div>
               )
@@ -319,7 +322,7 @@ export default function Financije({ kucanstvoId }) {
                     <span className="meta-tag">{proracun.period}</span>
                   </div>
                 </div>
-                <button className="link delete-btn" onClick={() => obrisiProracun(proracun.id)}>✕</button>
+                <button className="link delete-btn" onClick={() => obrisiProracun(proracun.id)}>X</button>
               </div>
             ))
           )}
@@ -347,18 +350,19 @@ export default function Financije({ kucanstvoId }) {
               <div key={trosak.id} className="trosak-card">
                 <div className="trosak-iznos">{formatIznos(trosak.iznos)}</div>
                 <div className="dogadaj-info">
-                  <div className="dogadaj-naziv">{trosak.opis || trosak.kategorija}</div>
+                  {/*opis zbog imena u bazi*/}
+                  <div className="dogadaj-naziv">{trosak.opis}</div>
                   <div className="dogadaj-meta">
                     <span className="meta-tag">{trosak.kategorija}</span>
                     <span className="meta-tag">{formatDatum(trosak.datum)}</span>
                     {trosak.profili && (
                       <span className="meta-tag">
-                        👤 {trosak.profili.ime || trosak.profili.email}
+                        {trosak.profili.ime}
                       </span>
                     )}
                   </div>
                 </div>
-                <button className="link delete-btn" onClick={() => obrisiTrosak(trosak.id)}>✕</button>
+                <button className="link delete-btn" onClick={() => obrisiTrosak(trosak.id)}>X</button>
               </div>
             ))
           )}
@@ -381,7 +385,7 @@ export default function Financije({ kucanstvoId }) {
                 autoFocus/>
               <input
                 type="text"
-                placeholder="Kategorija (npr. 'Hrana', 'Rezije')"
+                placeholder="Kategorija (npr. 'Hrana', 'Režije')"
                 value={proracunKategorija}
                 onChange={(e) => setProracunKategorija(e.target.value)}
                 required/>
@@ -439,9 +443,10 @@ export default function Financije({ kucanstvoId }) {
               </datalist>
               <input
                 type="text"
-                placeholder="Opis (opcionalno)"
-                value={trosakOpis}
-                onChange={(e) => setTrosakOpis(e.target.value)}/>
+                placeholder="Naziv"
+                value={trosakNaziv}
+                onChange={(e) => setTrosakNaziv(e.target.value)}
+                required/>
               <input
                 type="date"
                 value={trosakDatum}
