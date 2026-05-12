@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../supabaseClient'
 
-export default function Financije({ kucanstvoId, session }) {
+export default function Financije({ kucanstvoId }) {
   const [proracuni, setProracuni] = useState([])
   const [troskovi, setTroskovi] = useState([])
   const [loading, setLoading] = useState(true)
@@ -65,7 +65,7 @@ export default function Financije({ kucanstvoId, session }) {
 
     ucitaj()
 
-    // azuriraj obje tablice sad
+    // realtime update
     const channel = supabase
       .channel(`financije-${kucanstvoId}`)
       .on('postgres_changes',
@@ -86,7 +86,6 @@ export default function Financije({ kucanstvoId, session }) {
   }, [kucanstvoId])
 
   // PRORACUN
-
   const otvoriProracunModal = () => {
     setProracunNaziv('')
     setProracunKategorija('')
@@ -109,14 +108,14 @@ export default function Financije({ kucanstvoId, session }) {
       })
 
     if (error) {
-      alert('Greska: ' + error.message)
+      alert('Greška: ' + error.message)
     } else {
       setShowProracunModal(false)
     }
   }
 
   const obrisiProracun = async (id) => {
-    if (!confirm('Sigurno obrisati ovaj proracun?')) return
+    if (!confirm('Sigurno obrisati ovaj proračun?')) return
 
     const { error } = await supabase
       .from('proracuni')
@@ -124,17 +123,16 @@ export default function Financije({ kucanstvoId, session }) {
       .eq('id', id)
 
     if (error) {
-      alert('Greska: ' + error.message)
+      alert('Greška: ' + error.message)
     } else {
       setProracuni(prev => prev.filter(p => p.id !== id))
     }
   }
 
   // TROSAK
-
-  const otvoriTrosakModal = (kategorijaPrijedlog = '') => {
+  const otvoriTrosakModal = () => {
     setTrosakIznos('')
-    setTrosakKategorija(kategorijaPrijedlog)
+    setTrosakKategorija('')
     setTrosakOpis('')
     setTrosakDatum(new Date().toISOString().split('T')[0])
     setShowTrosakModal(true)
@@ -147,7 +145,7 @@ export default function Financije({ kucanstvoId, session }) {
       .from('troskovi')
       .insert({
         kucanstvo_id: kucanstvoId,
-        platio: session.user.id,
+        //platio: session.user.id,
         iznos: parseFloat(trosakIznos),
         kategorija: trosakKategorija.trim(),
         opis: trosakOpis.trim() || null,
@@ -155,14 +153,14 @@ export default function Financije({ kucanstvoId, session }) {
       })
 
     if (error) {
-      alert('Greska: ' + error.message)
+      alert('Greška: ' + error.message)
     } else {
       setShowTrosakModal(false)
     }
   }
 
   const obrisiTrosak = async (id) => {
-    if (!confirm('Sigurno obrisati ovaj trosak?')) return
+    if (!confirm('Sigurno obrisati ovaj trošak?')) return
 
     const { error } = await supabase
       .from('troskovi')
