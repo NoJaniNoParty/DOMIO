@@ -30,7 +30,7 @@ export default function KreirajKucanstvo({ onClose, onSuccess }) {
     //overlay dodan za zatvaranje u slucaju klika izvan okvira
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <h2>Kreiraj kucanstvo</h2>
+        <h2>Kreiraj kućanstvo</h2>
 
         <form onSubmit={handleSubmit}>
           <input

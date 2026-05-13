@@ -64,7 +64,7 @@ export default function Clanovi({ kucanstvoId, session, onClose }) {
               </div>
             ))}
 
-            <p className="empty-mali">Ukupno: {clanovi.length} {clanovi.length === 1 ? 'clan' : 'clanova'}
+            <p className="empty-mali">Ukupno: {clanovi.length} {clanovi.length === 1 ? 'član' : 'članova'}
             </p>
           </div>
         )}

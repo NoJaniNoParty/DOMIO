@@ -212,7 +212,7 @@ export default function Zadaci({ kucanstvoId, session }) {
     return datum < danas
   }
 
-  if (loading) return <p className="empty">Ucitavanje zadataka...</p>
+  if (loading) return <p className="empty">Učitavanje zadataka...</p>
 
   return (
     <div className="zadaci">

@@ -6,7 +6,7 @@ export default function Auth() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [ime, setIme] = useState('')
-  const [isRegister, setIsRegister] = useState(false)
+  const [isRegistered, setisRegistered] = useState(false)
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
 
@@ -30,7 +30,7 @@ export default function Auth() {
       setMessage('Greška: ' + error.message)
     } else {
       setMessage('Uspješno! Sad se možeš prijaviti.')
-      setIsRegister(false)
+      setisRegistered(false)
     }
     setLoading(false)
   }
@@ -55,11 +55,11 @@ export default function Auth() {
     <div className= "modaltest">
     <div className="container">
       <h1>Domio</h1>
-      <h2>{isRegister ? 'Registracija' : 'Prijava'}</h2>
+      <h2>{isRegistered ? 'Registracija' : 'Prijava'}</h2>
 
-      <form onSubmit={isRegister ? handleRegister : handleLogin}>
+      <form onSubmit={isRegistered ? handleRegister : handleLogin}>
         {/*ako je true renderiraj element inace skip*/}
-        {isRegister && (
+        {isRegistered && (
           <input
             type="text"
             placeholder="Ime"
@@ -81,7 +81,7 @@ export default function Auth() {
           required
           minLength={6}/>
         <button type="submit" disabled={loading}>
-          {loading ? 'Učitavanje...' : (isRegister ? 'Registriraj se' : 'Prijavi se')}
+          {loading ? 'Učitavanje...' : (isRegistered ? 'Registriraj se' : 'Prijavi se')}
         </button>
       </form>
 
@@ -89,16 +89,16 @@ export default function Auth() {
 
       <p>
         {/*ne brisi prazno to je razmak*/}
-        {isRegister ? 'Već imšs račun?' : 'Nemaš račun?'}{' '}
+        {isRegistered ? 'Već imšs račun?' : 'Nemaš račun?'}{' '}
         <button
         //izbjegni submit - definiraj tip
           type="button"
           className="link"
           onClick={() => {
-            setIsRegister(!isRegister)
+            setisRegistered(!isRegistered)
             setMessage('')
           }}>
-          {isRegister ? 'Prijavi se' : 'Registriraj se'}
+          {isRegistered ? 'Prijavi se' : 'Registriraj se'}
         </button>
       </p>
     </div>

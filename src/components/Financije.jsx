@@ -240,11 +240,11 @@ export default function Financije({ kucanstvoId }) {
         </button>
         <button
           className={`tab ${prikaz === 'proracuni' ? 'active' : ''}`}
-          onClick={() => setPrikaz('proracuni')}>Proracuni
+          onClick={() => setPrikaz('proracuni')}>Proračuni
         </button>
         <button
           className={`tab ${prikaz === 'troskovi' ? 'active' : ''}`}
-          onClick={() => setPrikaz('troskovi')}>Troskovi
+          onClick={() => setPrikaz('troskovi')}>Troškovi
         </button>
       </div>
 
@@ -253,22 +253,22 @@ export default function Financije({ kucanstvoId }) {
         <>
           <div className="finance-summary">
             <div className="summary-card big">
-              <div className="summary-label">Ukupno ovaj mjesec</div>
+              <div className="summary-label">Ukupno potrošeno ovaj mjesec</div>
               <div className="summary-value">{formatIznos(ukupnoOvajMjesec())}</div>
             </div>
             <div className="summary-card">
-              <div className="summary-label">Aktivni proracuni</div>
+              <div className="summary-label">Aktivni proračuni</div>
               <div className="summary-value">{proracuni.length}</div>
             </div>
             <div className="summary-card">
-              <div className="summary-label">Ukupno troskova</div>
+              <div className="summary-label">Ukupno troškova</div>
               <div className="summary-value">{troskovi.length}</div>
             </div>
           </div>
 
-          <h3 className="lista-naslov-grupe">Status proracuna</h3>
+          <h3 className="lista-naslov-grupe">Status proračuna</h3>
           {proracuni.length === 0 ? (
-            <p className="empty-mali">Nemas jos proracuna. Definiraj ih u tabu "Proracuni"!</p>) : ( proracuni.map(proracun => {
+            <p className="empty-mali">Nemas jos proračuna. Definiraj ih u tabu "Proračuni"!</p>) : ( proracuni.map(proracun => {
               const potroseno = potrosenoZaProracun(proracun)
               const limit = parseFloat(proracun.iznos)
               const postotak = Math.min((potroseno / limit) * 100, 100)
@@ -293,10 +293,10 @@ export default function Financije({ kucanstvoId }) {
                     />
                   </div>
                   {presao && (
-                    <div className="upozorenje">Presao si proracun za {formatIznos(potroseno - limit)}!</div>
+                    <div className="upozorenje">Prešao si proračun za {formatIznos(potroseno - limit)}!</div>
                   )}
                   {blizu && (
-                    <div className="upozorenje warn">Iskoristio si {postotak.toFixed(0)}% proracuna</div>
+                    <div className="upozorenje warn">Iskoristio si {postotak.toFixed(0)}% proračuna</div>
                   )}
                 </div>
               )
@@ -342,7 +342,7 @@ export default function Financije({ kucanstvoId }) {
                 <option key={k} value={k}>{k}</option>
               ))}
             </select>
-            <button onClick={() => otvoriTrosakModal()}>+ Trosak</button>
+            <button onClick={() => otvoriTrosakModal()}>+ Trošak</button>
           </div>
 
           {filtriraniTroskovi.length === 0 ? (
@@ -400,8 +400,8 @@ export default function Financije({ kucanstvoId }) {
               <select
                 value={proracunPeriod}
                 onChange={(e) => setProracunPeriod(e.target.value)}>
-                <option value="mjesecno">Mjesecno</option>
-                <option value="godisnje">Godisnje</option>
+                <option value="mjesecno">Mjesečno</option>
+                <option value="godisnje">Godišnje</option>
               </select>
 
               <div className="modal-actions">
@@ -417,7 +417,7 @@ export default function Financije({ kucanstvoId }) {
       {showTrosakModal && (
         <div className="modal-overlay" onClick={() => setShowTrosakModal(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <h2>Novi trosak</h2>
+            <h2>Novi trošak</h2>
 
             <form onSubmit={spremiTrosak}>
               <input

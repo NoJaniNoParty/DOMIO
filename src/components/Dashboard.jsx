@@ -96,9 +96,9 @@ export default function Dashboard({ session }) {
 
       <p className="welcome">Bok, <strong>{session.user.user_metadata.ime}</strong>!</p>
 
-      <h2>Tvoja kucanstva</h2>
-      {loading ? (<p>Ucitavanje...</p>) : kucanstva.length === 0 ? (
-        <p className="empty">Nemas jos kucanstava. Kreiraj novo ili se pridruzi postojecem!</p>) : ( 
+      <h2>Tvoja kućanstva</h2>
+      {loading ? (<p>Učitavanje...</p>) : kucanstva.length === 0 ? (
+        <p className="empty">Nemas jos kućanstava. Kreiraj novo ili se pridruži postojećem!</p>) : ( 
         <div className="kucanstva-lista">
           {/*aaaaa ovo je bilo mukotrpno
           kucanstva.kucanstvo.kucanstva -> lista, element, tablica
