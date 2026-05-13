@@ -28,7 +28,7 @@ export default function Dashboard({ session }) {
       .eq('korisnik_id', session.user.id)
 
     if (error) {
-      console.error('Greska pri ucitavanju:', error)
+      console.error('Greška pri učitavanju:', error)
     } else {
       setKucanstva(data)
     }
@@ -55,7 +55,7 @@ export default function Dashboard({ session }) {
       if (!aktivan) return
 
       if (error) {
-        console.error('Greska pri ucitavanju:', error)
+        console.error('Greška pri učitavanju:', error)
       } else {
         setKucanstva(data)
       }
@@ -117,8 +117,8 @@ export default function Dashboard({ session }) {
       )}
 
       <div className="dashboard-actions">
-        <button onClick={() => setShowKreiraj(true)}>+ Kreiraj kucanstvo</button>
-        <button className="secondary" onClick={() => setShowPridruzi(true)}>Pridruzi se</button>
+        <button onClick={() => setShowKreiraj(true)}>+ Kreiraj kućanstvo</button>
+        <button className="secondary" onClick={() => setShowPridruzi(true)}>Pridruži se</button>
       </div>
 
       {showKreiraj && (

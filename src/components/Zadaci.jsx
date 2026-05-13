@@ -137,7 +137,7 @@ export default function Zadaci({ kucanstvoId, session }) {
       .delete()
       .eq('id', listaId)
 
-    if (error) alert('Greska: ' + error.message)
+    if (error) alert('Greška: ' + error.message)
     if (otvorenaLista === listaId) setOtvorenaLista(null)
   }
 
@@ -155,7 +155,7 @@ export default function Zadaci({ kucanstvoId, session }) {
       })
 
     if (error) {
-      alert('Greska: ' + error.message)
+      alert('Greška: ' + error.message)
     } else {
       setNoviZadatak('')
       setNoviRok('')
@@ -170,7 +170,7 @@ export default function Zadaci({ kucanstvoId, session }) {
       .update({ zavrseno: !zadatak.zavrseno })
       .eq('id', zadatak.id)
 
-      if (error) alert('Greska: ' + error.message)
+      if (error) alert('Greška: ' + error.message)
   }
 
   
@@ -180,7 +180,7 @@ export default function Zadaci({ kucanstvoId, session }) {
       .delete()
       .eq('id', zadatakId)
 
-      if (error) alert('Greska: ' + error.message)
+      if (error) alert('Greška: ' + error.message)
   }
   const promijeniDodjelu = async (zadatakId, noviKorisnikId) => {
     const { error } = await supabase
@@ -189,7 +189,7 @@ export default function Zadaci({ kucanstvoId, session }) {
       .eq('id', zadatakId)
 
       if (error) {
-        alert('Greska: ' + error.message)
+        alert('Greška: ' + error.message)
       }
   // zatvori prozor
       setEditDodjelaId(null)  

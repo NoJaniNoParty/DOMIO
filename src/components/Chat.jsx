@@ -32,7 +32,7 @@ export default function Chat({ kucanstvoId, session }) {
       if (!aktivan) return
 
       if (error) {
-        console.error('Greska pri ucitavanju poruka:', error)
+        console.error('Greška pri učitavanju poruka:', error)
       } else {
         // ako nema poruka vrati prazan array
         setPoruke(data || [])
@@ -104,7 +104,7 @@ export default function Chat({ kucanstvoId, session }) {
       })
 
     if (error) {
-      console.error('Greska pri slanju:', error)
+      console.error('Greška pri slanju:', error)
       alert('Nije uspjelo slanje poruke: ' + error.message)
     } else {
       setNovaPoruka('')
@@ -149,13 +149,13 @@ if (loading) return <p className="empty">Učitavanje poruka...</p>
       <form className="chat-form" onSubmit={posaljiPoruku}>
         <input
           type="text"
-          placeholder="Napisi poruku"
+          placeholder="Napiši poruku"
           value={novaPoruka}
           onChange={(e) => setNovaPoruka(e.target.value)}
           disabled={salje}
           autoFocus/>
         <button type="submit" disabled={!novaPoruka.trim()}>
-          {salje ? '...' : 'Posalji'}
+          {salje ? '...' : 'Pošalji'}
         </button>
       </form>
     </div>

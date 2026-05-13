@@ -1106,61 +1106,6 @@ button.secondary:hover:not(:disabled) {
 }
 
 /* ------------ RESPONSIVE---------------*/
-@media (max-width: 600px) {
-  body {
-    padding: 0;
-  }
-
-  .container {
-    border-radius: 0;
-    padding: 24px 16px;
-    min-height: 100vh;
-    border: none;
-    box-shadow: none;
-  }
-
-  h1 { font-size: 24px; }
-  .header h1 { font-size: 19px; }
-
-  .kucanstva-lista {
-    grid-template-columns: 1fr;
-  }
-
-  .finance-summary {
-    grid-template-columns: 1fr;
-  }
-
-  .dashboard-actions {
-    flex-direction: column;
-  }
-
-  .modal {
-    padding: 20px;
-  }
-
-  .chat {
-    height: 60vh;
-  }
-
-  .poruka {
-    max-width: 85%;
-  }
-
-  .tab {
-    padding: 8px 12px;
-    font-size: 13px;
-  }
-
-  .novi-zadatak-meta {
-    flex-direction: column;
-  }
-
-  .novi-zadatak-meta input,
-  .novi-zadatak-meta select,
-  .novi-zadatak-meta button {
-    width: 100%;
-  }
-}
 
 /*clanovi*/
 
@@ -1270,19 +1215,4 @@ button.secondary:hover:not(:disabled) {
   border: 1px solid var(--border);
 }
 
-/* Mobile responsive */
-@media (max-width: 600px) {
-  .kucanstvo-info {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .kucanstvo-info .clanovi-btn {
-    width: 100%;
-  }
-  
-  .kucanstvo-info .kod-display {
-    text-align: center;
-  }
-}
 

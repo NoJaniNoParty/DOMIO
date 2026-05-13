@@ -81,7 +81,7 @@ export default function Auth() {
           required
           minLength={6}/>
         <button type="submit" disabled={loading}>
-          {loading ? 'Ucitavanje...' : (isRegister ? 'Registriraj se' : 'Prijavi se')}
+          {loading ? 'Učitavanje...' : (isRegister ? 'Registriraj se' : 'Prijavi se')}
         </button>
       </form>
 
@@ -89,7 +89,7 @@ export default function Auth() {
 
       <p>
         {/*ne brisi prazno to je razmak*/}
-        {isRegister ? 'Vec imas racun?' : 'Nemas racun?'}{' '}
+        {isRegister ? 'Već imšs račun?' : 'Nemaš račun?'}{' '}
         <button
         //izbjegni submit - definiraj tip
           type="button"

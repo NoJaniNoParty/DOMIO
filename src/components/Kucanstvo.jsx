@@ -16,9 +16,9 @@ export default function Kucanstvo({ kucanstvo, session, onBack }) {
 
   const napustiKucanstvo = async () => {
     const potvrda = confirm(
-      'Sigurno zelis napustiti ovo kucanstvo?\n\n' +
-      'Ako si vlasnik, vlasnistvo ce preci na prvog clana po redu pridruzivanja.\n' +
-      'Ako si jedini clan, kucanstvo i svi podaci ce biti obrisani.')
+      'Sigurno želiš napustiti ovo kućanstvo?\n\n' +
+      'Ako si vlasnik, vlasništvo će preći na prvog člana po redu pridruživanja.\n' +
+      'Ako si jedini član, kućanstvo i svi podaci će biti obrisani.')
 
     if (!potvrda) return
 

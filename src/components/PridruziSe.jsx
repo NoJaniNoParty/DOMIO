@@ -18,13 +18,13 @@ export default function PridruziSe({onClose, onSuccess }) {
       let poruka = errFunkcija.message
 
       if (poruka.includes('ne postoji')) {
-        poruka = 'Kucanstvo s tim kodom ne postoji.'
-      } else if (poruka.includes('Vec si clan') || poruka.includes('Vec si clan')) {
-        poruka = 'Vec si clan ovog kucanstva.'
+        poruka = 'Kućanstvo s tim kodom ne postoji.'
+      } else if (poruka.includes('Već si član') || poruka.includes('Već si član')) {
+        poruka = 'Već si član ovog kućanstva.'
       } else if (poruka.includes('nije prijavljen')) {
-        poruka = 'Nisi prijavljen. Osvjezi stranicu i prijavi se opet.'
+        poruka = 'Nisi prijavljen. Osvježi stranicu i prijavi se opet.'
       } else {
-        poruka = 'Greska: ' + poruka
+        poruka = 'Greška: ' + poruka
       }
 
       setError(poruka)
@@ -39,7 +39,7 @@ export default function PridruziSe({onClose, onSuccess }) {
   return (
     <div className="modal-overlayt" onClick={onClose}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <h2>Pridruzi se kucanstvu</h2>
+        <h2>Pridruži se kućanstvu</h2>
 
         <form onSubmit={handleSubmit}>
           <input
@@ -57,7 +57,7 @@ export default function PridruziSe({onClose, onSuccess }) {
             <button type="button" className="secondary" onClick={onClose}>Odustani
             </button>
             <button type="submit" disabled={loading}> 
-              {loading ? 'Pridruzujem...' : 'Pridruzi se'}
+              {loading ? 'Pridružujem...' : 'Pridruži se'}
             </button>
           </div>
         </form>

@@ -228,7 +228,7 @@ export default function Financije({ kucanstvoId }) {
   // filtrirani troskovi
   const filtriraniTroskovi = filterKategorija ? troskovi.filter(t => t.kategorija === filterKategorija) : troskovi
 
-  if (loading) return <p className="empty">Ucitavanje financija...</p>
+  if (loading) return <p className="empty">Učitavanje financija...</p>
 
   return (
     <div className="financije">
@@ -309,10 +309,10 @@ export default function Financije({ kucanstvoId }) {
       {prikaz === 'proracuni' && (
         <>
           <div className="financije-actions">
-            <button onClick={otvoriProracunModal}>+ Proracun</button>
+            <button onClick={otvoriProracunModal}>+ Proračun</button>
           </div>
 
-          {proracuni.length === 0 ? ( <p className="empty">Nemas jos proracuna. Kreiraj prvi!</p> ) : ( proracuni.map(proracun => (
+          {proracuni.length === 0 ? ( <p className="empty">Nemaš još proračuna. Kreiraj prvi!</p> ) : ( proracuni.map(proracun => (
               <div key={proracun.id} className="proracun-card">
                 <div className="dogadaj-info">
                   <div className="dogadaj-naziv">{proracun.naziv}</div>
@@ -346,7 +346,7 @@ export default function Financije({ kucanstvoId }) {
           </div>
 
           {filtriraniTroskovi.length === 0 ? (
-            <p className="empty">Nema troskova. Dodaj prvi!</p>) : (filtriraniTroskovi.map(trosak => (
+            <p className="empty">Nema troškova. Dodaj prvi!</p>) : (filtriraniTroskovi.map(trosak => (
               <div key={trosak.id} className="trosak-card">
                 <div className="trosak-iznos">{formatIznos(trosak.iznos)}</div>
                 <div className="dogadaj-info">
