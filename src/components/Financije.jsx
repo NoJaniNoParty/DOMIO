@@ -16,7 +16,7 @@ export default function Financije({ kucanstvoId }) {
   const [proracunPeriod, setProracunPeriod] = useState('mjesecno')
 
   // novi trosak
-  const [showTrosakModal, setShowTrosakModal] = useState(false)
+  const [showTrosakWin, setShowTrosakWin] = useState(false)
   const [trosakIznos, setTrosakIznos] = useState('')
   const [trosakKategorija, setTrosakKategorija] = useState('')
   const [trosakNaziv, setTrosakNaziv] = useState('')
@@ -102,7 +102,7 @@ export default function Financije({ kucanstvoId }) {
       .insert({
         kucanstvo_id: kucanstvoId,
         
-        opis: proracunNaziv.trim(),
+        naziv: proracunNaziv.trim(),
         kategorija: proracunKategorija.trim(),
         iznos: parseFloat(proracunIznos),
         period: proracunPeriod
@@ -131,13 +131,13 @@ export default function Financije({ kucanstvoId }) {
   }
 
   // TROSAK
-  const otvoriTrosakModal = () => {
+  const otvoriTrosakWin = () => {
     setTrosakIznos('')
     setTrosakKategorija('')
     setTrosakNaziv('')
     // resetiraj datum na danasnji
     setTrosakDatum(new Date().toISOString().split('T')[0])
-    setShowTrosakModal(true)
+    setShowTrosakWin(true)
   }
 
   const spremiTrosak = async (e) => {
@@ -158,7 +158,7 @@ export default function Financije({ kucanstvoId }) {
     if (error) {
       alert('Greška: ' + error.message)
     } else {
-      setShowTrosakModal(false)
+      setShowTrosakWin(false)
     }
   }
 
@@ -342,7 +342,7 @@ export default function Financije({ kucanstvoId }) {
                 <option key={k} value={k}>{k}</option>
               ))}
             </select>
-            <button onClick={() => otvoriTrosakModal()}>+ Trošak</button>
+            <button onClick={() => otvoriTrosakWin()}>+ Trošak</button>
           </div>
 
           {filtriraniTroskovi.length === 0 ? (
@@ -414,8 +414,8 @@ export default function Financije({ kucanstvoId }) {
       )}
 
       {/* NOVI TROSKOVI*/}
-      {showTrosakModal && (
-        <div className="modal-overlay" onClick={() => setShowTrosakModal(false)}>
+      {showTrosakWin && (
+        <div className="modal-overlay" onClick={() => setShowTrosakWin(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <h2>Novi trošak</h2>
 
@@ -453,7 +453,7 @@ export default function Financije({ kucanstvoId }) {
                 onChange={(e) => setTrosakDatum(e.target.value)}
                 required/>
               <div className="modal-actions">
-                <button type="button" className="secondary" onClick={() => setShowTrosakModal(false)}>Odustani</button>
+                <button type="button" className="secondary" onClick={() => setShowTrosakWin(false)}>Odustani</button>
                 <button type="submit">Spremi</button>
               </div>
             </form>

@@ -1,26 +1,20 @@
-
-.modaltest{
-    display: flex;
-    justify-content: center;
-    margin-top: 10%;
-    height: 100%;
-}
 :root {
   --primary: #6366f1;
   --primary-dark: #4f46e5;
-  --primary-darker: #4338ca;
   --primary-light: #eef2ff;
   --primary-soft: #c7d2fe;
 
   --success: #10b981;
   --success-light: #ecfdf5;
   --success-soft: #a7f3d0;
-  --warning: #f59e0b;
-  --warning-light: #fef3c7;
-  --warning-soft: #fcd34d;
+
   --danger: #ef4444;
   --danger-light: #fee2e2;
   --danger-soft: #fca5a5;
+
+  --warning: #f59e0b;
+  --warning-light: #fef3c7;
+  --warning-soft: #fcd34d;
 
   --bg: #fafafa;
   --bg-card: #ffffff;
@@ -33,223 +27,170 @@
   --text-light: #9ca3af;
 
   --border: #e5e7eb;
-  --border-strong: #d1d5db;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.04);
-  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.1);
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.15);
 
   --radius-sm: 6px;
   --radius: 10px;
   --radius-lg: 14px;
-  display: flex ;
-  align-items: center;
-  justify-content: center;
-  
-
-  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 
+/* ============================================2. RESET============================================ */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-*::-webkit-scrollbar { width: 8px; height: 8px; }
-*::-webkit-scrollbar-track { background: transparent; }
-*::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
-*::-webkit-scrollbar-thumb:hover { background: var(--text-light); }
-
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background: var(--bg);
-  background-image:
-    radial-gradient(at 20% 0%, rgba(99, 102, 241, 0.04) 0px, transparent 50%),
-    radial-gradient(at 80% 100%, rgba(16, 185, 129, 0.03) 0px, transparent 50%);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+}
+
+input {
+  font-family: inherit;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--text-light);
+}
+
+
+/* ============================================3. AUTH STRANICA============================================ */
+
+.modaltest {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
-  color: var(--text);
-  font-size: 14px;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ------------ ANIMACIJE---------------*/
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
-}
-
-/* ------------ KONTEJNER---------------*/
-.container {
-  
-  padding: 10px 36px 32px 32px;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
+.modaltest .container {
+  background: var(--bg-card);
   width: 100%;
   max-width: 420px;
-  animation: fadeIn 0.3s ease-out;
+  padding: 32px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
   border: 1px solid var(--border);
 }
 
-.container-wide {
-  max-width: 100%;
+.modaltest h1 {
   text-align: center;
-  
-}
-
-/* ------------ TIPOGRAFIJA---------------*/
-h1 {
-  text-align: center;
-  margin-bottom: 6px;
   font-size: 28px;
   font-weight: 800;
-  letter-spacing: -0.6px;
   color: var(--text);
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
 }
 
-h2 {
+.modaltest h2 {
   text-align: center;
-  margin-bottom: 24px;
-  color: var(--text-secondary);
-  font-weight: 500;
   font-size: 15px;
-}
-
-h3 {
-  margin-bottom: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text);
-}
-
-p {
-  font-size: 14px;
+  font-weight: 500;
   color: var(--text-secondary);
+  margin-bottom: 24px;
 }
 
-strong {
-  color: var(--text);
-  font-weight: 600;
-}
-
-/* ------------ FORME---------------*/
-form {
+.modaltest form {
   display: flex;
   flex-direction: column;
   gap: 12px;
   margin-bottom: 16px;
 }
 
-input,
-textarea,
-select {
-  padding: 11px 14px;
+.modaltest input {
+  padding: 12px 14px;
   border: 1.5px solid var(--border);
   border-radius: var(--radius);
   font-size: 14px;
-  outline: none;
-  transition: var(--transition);
-  width: 100%;
-  font-family: inherit;
   background: var(--bg-card);
   color: var(--text);
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-input:focus,
-textarea:focus,
-select:focus {
+.modaltest input:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px var(--primary-light);
 }
 
-input::placeholder,
-textarea::placeholder {
+.modaltest input::placeholder {
   color: var(--text-light);
 }
 
-textarea {
-  resize: vertical;
-  font-family: inherit;
-  min-height: 60px;
-}
-
-select {
-  cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  padding-right: 36px;
-}
-
-input[type="date"],
-input[type="datetime-local"] {
-  cursor: pointer;
-}
-
-input[type="checkbox"] {
-  width: auto;
-  cursor: pointer;
-  accent-color: var(--primary);
-}
-
-/* ------------ BUTTONI---------------*/
-button {
-  padding: 11px 18px;
+.modaltest form button {
+  padding: 12px 18px;
   background: var(--primary);
   color: white;
-  border: none;
   border-radius: var(--radius);
   font-size: 14px;
   font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-  font-family: inherit;
+  transition: background 0.2s, transform 0.1s;
+  margin-top: 4px;
 }
 
-button:hover:not(:disabled) {
+.modaltest form button:hover:not(:disabled) {
   background: var(--primary-dark);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
 }
 
-button:active:not(:disabled) {
-  transform: translateY(0);
+.modaltest form button:active:not(:disabled) {
+  transform: scale(0.98);
 }
 
-button:disabled {
+.modaltest form button:disabled {
   background: var(--text-light);
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
-button.secondary {
-  background: var(--bg-muted);
-  color: var(--text);
+.message {
+  text-align: center;
+  padding: 12px 16px;
+  background: var(--warning-light);
+  color: #92400e;
+  border: 1px solid var(--warning);
+  border-radius: var(--radius);
+  font-size: 13px;
+  margin-bottom: 16px;
 }
 
-button.secondary:hover:not(:disabled) {
-  background: var(--border);
-  box-shadow: none;
+.modaltest p:not(.message) {
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-secondary);
 }
 
 .link {
@@ -257,143 +198,184 @@ button.secondary:hover:not(:disabled) {
   color: var(--primary);
   padding: 0;
   font-size: 14px;
+  font-weight: 600;
   text-decoration: underline;
-  display: inline;
-  width: auto;
-  font-weight: 500;
+  border: none;
+  cursor: pointer;
 }
 
-.link:hover:not(:disabled) {
-  background: none;
+.link:hover {
   color: var(--primary-dark);
-  transform: none;
-  box-shadow: none;
 }
 
-/* ------------ PORUKE---------------*/
-.message {
-  text-align: center;
-  padding: 12px 16px;
-  background: var(--warning-light);
-  border-radius: var(--radius);
-  color: #92400e;
-  margin-bottom: 16px;
-  font-size: 13px;
-  border: 1px solid var(--warning-soft);
+
+/* ============================================4. DASHBOARD STRANIC ============================================ */
+
+.container-wide {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 32px;
+  background: var(--bg-card);
+  min-height: 100vh;
 }
 
-/* ------------ HEADER---------------*/
+.made-by {
+  text-align: right;
+  margin-bottom: 8px;
+}
+
+.made-by h4 {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--border);
+  gap: 12px;
 }
 
 .header h1 {
-  margin-bottom: 0;
-  font-size: 22px;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.5px;
 }
 
 .header button:not(.link) {
-  padding: 8px 14px;
+  padding: 9px 16px;
+  background: var(--bg-muted);
+  color: var(--text);
+  border-radius: var(--radius);
   font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.header button:not(.link):hover {
+  background: var(--border);
+}
+
+.header button.secondary {
+  background: var(--danger-light);
+  color: var(--danger);
+}
+
+.header button.secondary:hover {
+  background: var(--danger-soft);
+  color: white;
 }
 
 .welcome {
-  text-align: center;
-  padding: 14px 16px;
   background: var(--primary-light);
+  border: 1px solid var(--primary-soft);
+  padding: 14px 18px;
   border-radius: var(--radius);
-  margin-bottom: 24px;
   color: var(--text-secondary);
   font-size: 14px;
-  border: 1px solid var(--primary-soft);
+  text-align: center;
+  margin-bottom: 24px;
 }
 
-/* ------------ LISTA KUCANSTVA---------------*/
+.welcome strong {
+  color: var(--primary-dark);
+  font-weight: 700;
+}
+
+.container-wide h1 {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+.container-wide h2 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.empty {
+  text-align: center;
+  padding: 40px 24px;
+  background: var(--bg-soft);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.empty-mali {
+  text-align: center;
+  padding: 12px;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-style: italic;
+}
+
 .kucanstva-lista {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 14px;
   margin-bottom: 24px;
 }
 
 .kucanstvo-card {
-  padding: 20px;
-  background: var(--bg-soft);
+  background: var(--bg-card);
   border: 2px solid var(--border);
   border-radius: var(--radius);
+  padding: 20px;
   cursor: pointer;
-  transition: var(--transition);
-  position: relative;
-  overflow: hidden;
-}
-
-.kucanstvo-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--primary);
-  opacity: 0;
-  transition: var(--transition);
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 
 .kucanstvo-card:hover {
   border-color: var(--primary);
-  background: var(--bg-card);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-lg);
-}
-
-.kucanstvo-card:hover::before {
-  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .kucanstvo-card h3 {
-  margin-bottom: 6px;
   font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.kucanstvo-card p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.kucanstvo-card p strong {
+  color: var(--text);
+  font-weight: 600;
 }
 
 .kucanstvo-card .kod {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 4px 10px;
+  background: var(--bg-muted);
+  border-radius: var(--radius-sm);
+  font-family: 'SF Mono', Monaco, 'Courier New', monospace;
   font-size: 11px;
   color: var(--text-muted);
-  margin-top: 8px;
-  font-family: 'SF Mono', Monaco, 'Courier New', monospace;
-  letter-spacing: 1.5px;
-  background: var(--bg-muted);
-  padding: 4px 8px;
-  border-radius: var(--radius-sm);
-  display: inline-block;
+  letter-spacing: 1px;
 }
 
-/* ------------ PRAZNO---------------*/
-.empty {
-  text-align: center;
-  padding: 48px 24px;
-  background: var(--bg-soft);
-  border-radius: var(--radius);
-  color: var(--text-muted);
-  margin-bottom: 16px;
-  font-size: 14px;
-  border: 2px dashed var(--border);
-}
-
-.empty-mali {
-  text-align: center;
-  padding: 16px;
-  color: var(--text-muted);
-  font-size: 13px;
-  background: transparent;
-  font-style: italic;
-}
-
-/* ------------ DASH OPCIJE---------------*/
 .dashboard-actions {
   display: flex;
   gap: 10px;
@@ -401,43 +383,221 @@ button.secondary:hover:not(:disabled) {
 
 .dashboard-actions button {
   flex: 1;
+  padding: 12px 18px;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.1s;
 }
 
-/* ------------ MODAL---------------*/
+.dashboard-actions button:hover {
+  background: var(--primary-dark);
+}
+
+.dashboard-actions button:active {
+  transform: scale(0.98);
+}
+
+.dashboard-actions button.secondary {
+  background: var(--bg-muted);
+  color: var(--text);
+}
+
+.dashboard-actions button.secondary:hover {
+  background: var(--border);
+}
+
+
+/* ============================================5. KUCANSTVO STRANICA============================================ */
+
+.kucanstvo-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.kucanstvo-info .clanovi-btn {
+  width: auto;
+  padding: 10px 18px;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  border: 1px solid var(--primary-soft);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.kucanstvo-info .clanovi-btn:hover {
+  background: var(--primary-soft);
+}
+
+.kod-display {
+  flex: 1;
+  padding: 10px 16px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+  font-size: 13px;
+  text-align: center;
+}
+
+.kod-display strong {
+  color: var(--text);
+  font-family: 'SF Mono', Monaco, monospace;
+  letter-spacing: 2px;
+  font-weight: 700;
+  margin-left: 6px;
+}
+
+.tabovi {
+  display: flex;
+  gap: 2px;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+.tab {
+  padding: 10px 18px;
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  margin-bottom: -2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.tab:hover:not(.active) {
+  color: var(--text);
+}
+
+.tab.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+.tab-content {
+  min-height: 400px;
+}
+
+
+/* ============================================6. MODALI============================================ */
+
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(17, 24, 39, 0.5);
+  right: 0;
+  bottom: 0;
+  background: rgba(17, 24, 39, 0.55);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  animation: fadeIn 0.2s ease;
   padding: 20px;
+  animation: fadeIn 0.2s ease-out;
 }
 
 .modal {
   background: var(--bg-card);
-  padding: 28px;
-  border-radius: var(--radius-lg);
   width: 100%;
   max-width: 440px;
+  padding: 28px;
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-xl);
-  animation: slideUp 0.25s ease;
   border: 1px solid var(--border);
+  animation: slideUp 0.25s ease-out;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .modal h2 {
-  margin-bottom: 20px;
   font-size: 20px;
   font-weight: 700;
-  text-align: left;
   color: var(--text);
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal input,
+.modal textarea,
+.modal select {
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  background: var(--bg-card);
+  color: var(--text);
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+}
+
+.modal input:focus,
+.modal textarea:focus,
+.modal select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.modal input::placeholder,
+.modal textarea::placeholder {
+  color: var(--text-light);
+}
+
+.modal textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+
+.modal label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.modal .checkbox-label {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text);
+  text-transform: none;
+  letter-spacing: 0;
+  cursor: pointer;
+  padding: 4px 0;
+  font-weight: 500;
+}
+
+.modal .checkbox-label input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--primary);
 }
 
 .modal-actions {
@@ -448,99 +608,57 @@ button.secondary:hover:not(:disabled) {
 
 .modal-actions button {
   flex: 1;
-}
-
-.modal label {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-}
-
-.modal .checkbox-label {
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: var(--text);
-  cursor: pointer;
-  text-transform: none;
-  letter-spacing: 0;
-  padding: 8px 0;
-}
-
-.modal .checkbox-label input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-}
-
-/* ------------ INV CODE---------------*/
-.kod-display {
-  text-align: center;
-  background: var(--primary-light);
-  padding: 10px 16px;
+  padding: 12px 18px;
+  background: var(--primary);
+  color: white;
   border-radius: var(--radius);
-  margin-bottom: 20px;
-  font-family: 'SF Mono', Monaco, monospace;
-  
-  color: var(--text-secondary);
-  font-size: 13px;
-  border: 1px solid var(--primary-soft);
-}
-
-.kod-display strong {
-  color: var(--primary-dark);
-  letter-spacing: 3px;
-  font-size: 14px;
-}
-
-/* ------------ TABS---------------*/
-.tabovi {
-  display: flex;
-  gap: 4px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 20px;
-  overflow-x: auto;
-}
-
-.tab {
-  padding: 10px 16px;
-  background: transparent;
-  color: var(--text-muted);
-  border: none;
-  border-bottom: 3px solid transparent;
-  border-radius: 0;
   font-size: 14px;
   font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-  white-space: nowrap;
-  margin-bottom: -1px;
+  transition: background 0.2s, transform 0.1s;
 }
 
-.tab:hover:not(.active) {
-  background: transparent;
+.modal-actions button:hover:not(:disabled) {
+  background: var(--primary-dark);
+}
+
+.modal-actions button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.modal-actions button:disabled {
+  background: var(--text-light);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.modal-actions button.secondary {
+  background: var(--bg-muted);
   color: var(--text);
-  transform: none;
-  box-shadow: none;
 }
 
-.tab.active {
-  color: var(--primary);
-  border-bottom-color: var(--primary);
-  background: transparent;
-  box-shadow: none;
+.modal-actions button.secondary:hover {
+  background: var(--border);
 }
 
-.tab-content {
-  min-height: 400px;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
-/* ------------ CHAT---------------*/
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+/* ============================================7. CHAT============================================ */
+
 .chat {
   display: flex;
   flex-direction: column;
@@ -552,20 +670,20 @@ button.secondary:hover:not(:disabled) {
   overflow-y: auto;
   padding: 16px;
   background: var(--bg-soft);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   margin-bottom: 12px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  border: 1px solid var(--border);
 }
 
 .poruka {
   max-width: 75%;
-  padding: 9px 14px;
+  padding: 10px 14px;
   border-radius: 16px;
   word-wrap: break-word;
-  animation: fadeIn 0.2s ease;
+  animation: fadeIn 0.2s ease-out;
 }
 
 .poruka.moja {
@@ -586,8 +704,8 @@ button.secondary:hover:not(:disabled) {
 .poruka-ime {
   font-size: 11px;
   font-weight: 700;
-  margin-bottom: 2px;
   color: var(--primary);
+  margin-bottom: 3px;
 }
 
 .poruka-sadrzaj {
@@ -597,9 +715,9 @@ button.secondary:hover:not(:disabled) {
 
 .poruka-vrijeme {
   font-size: 10px;
-  opacity: 0.7;
-  margin-top: 3px;
+  margin-top: 4px;
   text-align: right;
+  opacity: 0.75;
 }
 
 .poruka.tudja .poruka-vrijeme {
@@ -609,39 +727,193 @@ button.secondary:hover:not(:disabled) {
 .chat-form {
   display: flex;
   gap: 8px;
-  flex-direction: row;
 }
 
 .chat-form input {
   flex: 1;
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  background: var(--bg-card);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.chat-form input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.chat-form input:disabled {
+  background: var(--bg-muted);
+  cursor: not-allowed;
 }
 
 .chat-form button {
-  width: auto;
-  padding: 11px 22px;
+  padding: 12px 22px;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.1s;
 }
 
-/* ------------ZADACI---------------*/
+.chat-form button:hover:not(:disabled) {
+  background: var(--primary-dark);
+}
+
+.chat-form button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.chat-form button:disabled {
+  background: var(--text-light);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+
+/* ============================================8. CLANOVI MODAL============================================ */
+
+.clanovi-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.clan-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.clan-card:hover {
+  border-color: var(--primary-soft);
+  box-shadow: var(--shadow-sm);
+}
+
+.clan-info {
+  flex: 1;
+}
+
+.clan-ime {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.ti-tag {
+  margin-left: 6px;
+  font-size: 11px;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.clan-meta {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.meta-tag {
+  font-size: 11px;
+  padding: 3px 8px;
+  background: var(--bg-muted);
+  color: var(--text-secondary);
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.uloga-tag {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.uloga-tag.vlasnik {
+  background: var(--warning-light);
+  color: #92400e;
+  border: 1px solid var(--warning);
+}
+
+.uloga-tag.clan {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  border: 1px solid var(--primary-soft);
+}
+
+
+/* ============================================9. ZADACI============================================ */
+
 .zadaci {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .nova-lista-forma {
   display: flex;
   gap: 8px;
-  flex-direction: row;
-  margin-bottom: 8px;
 }
 
-.nova-lista-forma input { flex: 1; }
-.nova-lista-forma button { width: auto; padding: 11px 20px; }
+.nova-lista-forma input {
+  flex: 1;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  background: var(--bg-card);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.nova-lista-forma input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.nova-lista-forma button {
+  padding: 11px 20px;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.nova-lista-forma button:hover:not(:disabled) {
+  background: var(--primary-dark);
+}
+
+.nova-lista-forma button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.nova-lista-forma button:disabled {
+  background: var(--text-light);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
 
 .liste-container {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .lista-card {
@@ -649,17 +921,16 @@ button.secondary:hover:not(:disabled) {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
-  transition: var(--transition);
+  transition: box-shadow 0.2s;
 }
 
 .lista-card:hover {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
 }
 
 .lista-header {
   display: flex;
   align-items: center;
-  padding: 4px 8px 4px 0;
 }
 
 .lista-naslov {
@@ -671,50 +942,53 @@ button.secondary:hover:not(:disabled) {
   background: transparent;
   color: var(--text);
   border: none;
-  border-radius: 0;
   font-size: 15px;
   font-weight: 600;
   text-align: left;
   cursor: pointer;
-  transition: var(--transition);
+  transition: background 0.2s;
 }
 
-.lista-naslov:hover:not(:disabled) {
+.lista-naslov:hover {
   background: var(--bg-soft);
-  transform: none;
-  box-shadow: none;
-  color: var(--text);
 }
 
 .lista-brojac {
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--primary);
   background: var(--primary-light);
+  border: 1px solid var(--primary-soft);
   padding: 3px 10px;
   border-radius: 12px;
-  border: 1px solid var(--primary-soft);
 }
 
 .delete-btn {
-  font-size: 14px;
-  padding: 6px 10px;
   background: transparent;
-  text-decoration: none;
-  width: auto;
   color: var(--text-muted);
+  padding: 8px 12px;
+  border: none;
   border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 8px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
 }
 
-.delete-btn:hover:not(:disabled) {
+.delete-btn:hover {
   background: var(--danger-light);
   color: var(--danger);
 }
 
 .lista-sadrzaj {
   padding: 12px 16px 16px;
-  border-top: 1px solid var(--border);
   background: var(--bg-soft);
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .zadatak {
@@ -725,8 +999,7 @@ button.secondary:hover:not(:disabled) {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  margin-bottom: 8px;
-  transition: var(--transition);
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .zadatak:hover {
@@ -746,50 +1019,65 @@ button.secondary:hover:not(:disabled) {
 }
 
 .zadatak.kasni {
-  border-color: var(--danger-soft);
   background: var(--danger-light);
+  border-color: var(--danger-soft);
 }
 
 .zadatak input[type="checkbox"] {
   width: 20px;
   height: 20px;
-  flex-shrink: 0;
   cursor: pointer;
   accent-color: var(--primary);
+  flex-shrink: 0;
 }
 
-.zadatak-info { flex: 1; }
+.zadatak-info {
+  flex: 1;
+}
 
 .zadatak-naziv {
   font-size: 14px;
   font-weight: 500;
   color: var(--text);
+  margin-bottom: 4px;
 }
 
 .zadatak-meta {
   display: flex;
   gap: 6px;
-  margin-top: 4px;
   flex-wrap: wrap;
 }
 
-.meta-tag {
-  font-size: 11px;
-  color: var(--text-secondary);
-  background: var(--bg-muted);
-  padding: 3px 8px;
-  border-radius: 6px;
-  font-weight: 500;
+.dodjela-tag {
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dodjela-tag:hover {
+  background: var(--primary-light);
+  color: var(--primary-dark);
 }
 
 .meta-tag.rok-kasni {
   background: var(--danger-light);
   color: var(--danger);
+  border: 1px solid var(--danger-soft);
   font-weight: 600;
 }
 
+.dodjela-select {
+  padding: 4px 10px;
+  border: 1.5px solid var(--primary);
+  border-radius: 6px;
+  background: var(--bg-card);
+  font-size: 11px;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
 .novi-zadatak-forma {
-  margin-top: 12px;
+  margin-top: 8px;
   padding-top: 12px;
   border-top: 1px dashed var(--border);
   display: flex;
@@ -797,7 +1085,20 @@ button.secondary:hover:not(:disabled) {
   gap: 8px;
 }
 
-.novi-zadatak-forma > input[type="text"] { width: 100%; }
+.novi-zadatak-forma input[type="text"] {
+  padding: 10px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  background: var(--bg-card);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.novi-zadatak-forma input[type="text"]:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
 
 .novi-zadatak-meta {
   display: flex;
@@ -810,31 +1111,67 @@ button.secondary:hover:not(:disabled) {
   flex: 1;
   min-width: 130px;
   padding: 9px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
   font-size: 13px;
+  background: var(--bg-card);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.novi-zadatak-meta input[type="date"]:focus,
+.novi-zadatak-meta select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
 }
 
 .novi-zadatak-meta button {
-  width: auto;
   padding: 9px 16px;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius-sm);
   font-size: 13px;
-  flex-shrink: 0;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.1s;
+  white-space: nowrap;
 }
 
-/* ------------ KALENDAR---------------*/
+.novi-zadatak-meta button:hover:not(:disabled) {
+  background: var(--primary-dark);
+}
+
+.novi-zadatak-meta button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.novi-zadatak-meta button:disabled {
+  background: var(--text-light);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+
+/* ============================================10. KALENDAR============================================ */
+
 .kalendar {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 .lista-naslov-grupe {
   font-size: 13px;
+  font-weight: 700;
   color: var(--text-muted);
-  margin: 12px 0 6px 0;
-  text-align: left;
   text-transform: uppercase;
   letter-spacing: 0.6px;
-  font-weight: 700;
+  margin: 16px 0 8px;
+  padding-bottom: 4px;
+}
+
+.lista-naslov-grupe.opasiti {
+  opacity: 0.6;
 }
 
 .dogadaj-card {
@@ -846,12 +1183,12 @@ button.secondary:hover:not(:disabled) {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   margin-bottom: 8px;
-  transition: var(--transition);
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .dogadaj-card:hover {
   border-color: var(--primary-soft);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
 }
 
 .dogadaj-card.prosli {
@@ -866,14 +1203,17 @@ button.secondary:hover:not(:disabled) {
 }
 
 .dogadaj-card.aktivni:hover {
-  border-color: #059669;
+  border-color: var(--success);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
 }
 
-.dogadaj-info { flex: 1; }
+.dogadaj-info {
+  flex: 1;
+}
 
 .dogadaj-naziv {
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text);
   margin-bottom: 6px;
 }
@@ -886,57 +1226,87 @@ button.secondary:hover:not(:disabled) {
 }
 
 .dogadaj-opis {
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin-top: 6px;
-  line-height: 1.5;
-  padding: 6px 10px;
+  margin-top: 8px;
+  padding: 8px 12px;
   background: var(--bg-soft);
   border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
 }
 
-/* ------------ FINANCIJE---------------*/
+
+/* ===========================================11. FINANCIJE ============================================ */
+
 .financije {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
+/* tabovi Pregled / Proracuni / Troskovi */
 .financije-prikazi {
   display: flex;
-  gap: 4px;
+  gap: 2px;
   border-bottom: 1px solid var(--border);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   overflow-x: auto;
 }
 
+/* Akcije bar - gumbi + filter */
 .financije-actions {
   display: flex;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  align-items: center;
 }
 
 .financije-actions button {
-  width: auto;
-  padding: 10px 16px;
+  padding: 10px 18px;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.1s;
+  white-space: nowrap;
   margin-left: auto;
 }
 
+.financije-actions button:hover {
+  background: var(--primary-dark);
+}
+
+.financije-actions button:active {
+  transform: scale(0.97);
+}
+
+/* Filter dropdown za troskove */
 .filter-select {
-  padding: 10px 12px;
+  padding: 10px 14px;
   border: 1.5px solid var(--border);
   border-radius: var(--radius);
   font-size: 14px;
   background: var(--bg-card);
-  flex: 1;
-  max-width: 220px;
+  color: var(--text);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  min-width: 180px;
+  margin-left: 0;
 }
 
+.filter-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+/* Summary kartice - PREGLED */
 .finance-summary {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .summary-card {
@@ -945,15 +1315,16 @@ button.secondary:hover:not(:disabled) {
   border-radius: var(--radius);
   padding: 18px 16px;
   text-align: center;
-  transition: var(--transition);
+  transition: box-shadow 0.2s;
 }
 
 .summary-card:hover {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
 }
 
+/* Glavna kartica - vise prostora, gradient */
 .summary-card.big {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-darker) 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   color: white;
   border: none;
   box-shadow: var(--shadow-md);
@@ -982,23 +1353,26 @@ button.secondary:hover:not(:disabled) {
   color: var(--primary);
 }
 
+/* Proracun s progress bar-om */
 .proracun-progress {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 14px 16px;
   margin-bottom: 10px;
-  transition: var(--transition);
+  transition: box-shadow 0.2s;
 }
 
 .proracun-progress:hover {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
 }
+
 
 .proracun-progress.blizu {
   border-color: var(--warning-soft);
   background: var(--warning-light);
 }
+
 
 .proracun-progress.presao {
   border-color: var(--danger-soft);
@@ -1012,6 +1386,19 @@ button.secondary:hover:not(:disabled) {
   margin-bottom: 10px;
   font-size: 14px;
   gap: 10px;
+  flex-wrap: wrap;
+}
+
+.proracun-header > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.proracun-header strong {
+  font-size: 15px;
+  color: var(--text);
 }
 
 .proracun-iznosi {
@@ -1020,6 +1407,7 @@ button.secondary:hover:not(:disabled) {
   font-weight: 600;
   white-space: nowrap;
 }
+
 
 .progress-bar {
   width: 100%;
@@ -1045,15 +1433,21 @@ button.secondary:hover:not(:disabled) {
   animation: pulse 2s infinite;
 }
 
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Upozorenje (presao / blizu) */
 .upozorenje {
   margin-top: 8px;
-  padding: 7px 12px;
+  padding: 8px 12px;
   background: var(--danger-light);
   color: var(--danger);
+  border: 1px solid var(--danger-soft);
   border-radius: var(--radius-sm);
   font-size: 12px;
   font-weight: 600;
-  border: 1px solid var(--danger-soft);
 }
 
 .upozorenje.warn {
@@ -1062,6 +1456,7 @@ button.secondary:hover:not(:disabled) {
   border-color: var(--warning-soft);
 }
 
+/* Proracun kartica - PROCUNI tab */
 .proracun-card {
   display: flex;
   align-items: flex-start;
@@ -1071,14 +1466,15 @@ button.secondary:hover:not(:disabled) {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   margin-bottom: 8px;
-  transition: var(--transition);
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .proracun-card:hover {
   border-color: var(--primary-soft);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
 }
 
+/* Trosak kartica - TROSKOVI tab */
 .trosak-card {
   display: flex;
   align-items: center;
@@ -1088,14 +1484,15 @@ button.secondary:hover:not(:disabled) {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   margin-bottom: 8px;
-  transition: var(--transition);
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .trosak-card:hover {
   border-color: var(--primary-soft);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
 }
 
+/* Veliki iznos na lijevoj strani */
 .trosak-iznos {
   font-size: 18px;
   font-weight: 800;
@@ -1105,114 +1502,328 @@ button.secondary:hover:not(:disabled) {
   letter-spacing: -0.3px;
 }
 
-/* ------------ RESPONSIVE---------------*/
-
-/*clanovi*/
 
 
-.kucanstvo-info {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
+@media (max-width: 600px) {
+
+  /* iOS zoom prevention */
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+
+  /* ===== AUTH ===== */
+  .modaltest { padding: 16px; }
+
+  .modaltest .container {
+    padding: 28px 20px;
+    max-width: 100%;
+  }
+
+  .modaltest h1 { font-size: 26px; }
+
+  .modaltest h2 {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .modaltest form button {
+    padding: 14px 18px;
+    font-size: 15px;
+  }
+
+  /* ===== DASHBOARD ===== */
+  .container-wide {
+    padding: 16px;
+    border-radius: 0;
+    max-width: 100%;
+  }
+
+  .made-by {
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .made-by h4 {
+    font-size: 10px;
+  }
+
+  .header {
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .header h1 {
+    font-size: 22px;
+  }
+
+  .header button:not(.link) {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .welcome {
+    padding: 12px 14px;
+    font-size: 13px;
+    margin-bottom: 18px;
+  }
+
+  .container-wide h1 {
+    font-size: 22px;
+  }
+
+  .container-wide h2 {
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+
+  .kucanstva-lista {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .kucanstvo-card {
+    padding: 16px;
+  }
+
+  .kucanstvo-card h3 {
+    font-size: 16px;
+  }
+
+  .dashboard-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .dashboard-actions button {
+    width: 100%;
+    padding: 13px 18px;
+  }
+
+  /* ===== KUCANSTVO ===== */
+  .kucanstvo-info {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .kucanstvo-info .clanovi-btn {
+    width: 100%;
+    padding: 11px 16px;
+  }
+
+  .kod-display {
+    text-align: center;
+  }
+
+  .tab {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+
+  /* ===== MODALI ===== */
+  .modal-overlay {
+    padding: 16px;
+  }
+
+  .modal {
+    padding: 24px 20px;
+    max-width: 100%;
+  }
+
+  .modal h2 {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .modal-actions button {
+    padding: 13px 16px;
+  }
+
+  /* ===== CHAT ===== */
+  .chat {
+    height: calc(100vh - 320px);
+    min-height: 400px;
+  }
+
+  .chat-poruke {
+    padding: 12px;
+  }
+
+  .poruka {
+    max-width: 85%;
+    padding: 9px 12px;
+  }
+
+  .poruka-sadrzaj {
+    font-size: 13px;
+  }
+
+  .chat-form input {
+    padding: 11px 12px;
+  }
+
+  .chat-form button {
+    padding: 11px 16px;
+    font-size: 13px;
+  }
+
+  /* ===== CLANOVI ===== */
+  .clanovi-lista {
+    max-height: 50vh;
+  }
+
+  .clan-card {
+    padding: 12px;
+  }
+
+  .clan-ime {
+    font-size: 13px;
+  }
+
+  .uloga-tag,
+  .meta-tag {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+
+  /* ===== ZADACI ===== */
+  .nova-lista-forma {
+    flex-direction: column;
+  }
+
+  .nova-lista-forma button {
+    width: 100%;
+  }
+
+  .lista-naslov {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  .lista-brojac {
+    font-size: 11px;
+    padding: 2px 8px;
+  }
+
+  .lista-sadrzaj {
+    padding: 10px 12px 12px;
+  }
+
+  .zadatak {
+    padding: 8px 10px;
+  }
+
+  .zadatak-naziv {
+    font-size: 13px;
+  }
+
+  .novi-zadatak-meta {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .novi-zadatak-meta input[type="date"],
+  .novi-zadatak-meta select,
+  .novi-zadatak-meta button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* ===== KALENDAR ===== */
+  .dogadaj-card {
+    padding: 12px;
+  }
+
+  .dogadaj-naziv {
+    font-size: 14px;
+  }
+
+  .dogadaj-opis {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .lista-naslov-grupe {
+    font-size: 12px;
+    margin: 12px 0 6px;
+  }
+
+  /* ===== FINANCIJE ===== */
+  .financije-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .financije-actions button {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .filter-select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Summary kartice - 1 stupac */
+  .finance-summary {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .summary-card {
+    padding: 14px 12px;
+  }
+
+  .summary-value {
+    font-size: 20px;
+  }
+
+  .summary-label {
+    font-size: 10px;
+  }
+
+  /* Proracun progress */
+  .proracun-progress {
+    padding: 12px;
+  }
+
+  .proracun-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .proracun-iznosi {
+    font-size: 12px;
+  }
+
+  /* Trosak card */
+  .trosak-card {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .trosak-iznos {
+    font-size: 16px;
+    min-width: 80px;
+  }
+
+  /* Proracun card */
+  .proracun-card {
+    padding: 12px;
+  }
+
+  /* Sub-tabovi financija */
+  .financije-prikazi .tab {
+    flex: 1;
+    text-align: center;
+    padding: 9px 8px;
+    font-size: 12px;
+  }
 }
-
-.kucanstvo-info .clanovi-btn {
-  width: auto;
-  height: 100%;
- 
-  font-size: 13px;
-  white-space: nowrap;
-  text-align: center;
-  background: var(--primary-light);
- 
-  border-radius: var(--radius);
-
-  font-family: 'SF Mono', Monaco, monospace;
-  
-  color: var(--text-secondary);
-  font-size: 15px;
-  border: 1px solid var(--primary-soft);
-}
-
-.kucanstvo-info .kod-display {
-  flex: 1;
-  margin-bottom: 0;
-}
-
-
-.clanovi-lista {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-height: 400px;
-  overflow-y: auto;
-  margin-bottom: 16px;
-}
-
-.clan-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px;
-  background: var(--bg-soft);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  transition: var(--transition);
-}
-
-.clan-card:hover {
-  border-color: var(--primary-soft);
-  box-shadow: var(--shadow-sm);
-}
-
-
-
-.clan-info {
-  flex: 1;
-}
-
-.clan-ime {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 4px;
-}
-
-.ti-tag {
-  font-size: 11px;
-  color: var(--primary);
-  font-weight: 500;
-}
-
-.clan-meta {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  justify-content: center;
-  
- 
- 
-
-}
-
-.uloga-tag {
-  font-size: 11px;
-  padding: 3px 8px;
-  border-radius: 6px;
-  font-weight: 600;
-}
-
-.uloga-tag.vlasnik {
-  background: var(--warning-light);
-  color: #92400e;
-  border: 1px solid var(--warning-soft);
-}
-
-.uloga-tag.clan {
-  background: var(--bg-muted);
-  color: var(--text-secondary);
-  border: 1px solid var(--border);
-}
-
 

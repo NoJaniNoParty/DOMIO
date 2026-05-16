@@ -4,7 +4,7 @@ import { supabase } from '../supabaseClient'
 export default function Kalendar({ kucanstvoId, session }) {
   const [dogadaji, setDogadaji] = useState([])
   const [loading, setLoading] = useState(true)
-  const [showModal, setShowModal] = useState(false)
+  const [showDogWin,setShowNewDogWin] = useState(false)
 
   
   const [naziv, setNaziv] = useState('')
@@ -66,13 +66,13 @@ export default function Kalendar({ kucanstvoId, session }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [kucanstvoId])
 
-  const otvoriModal = () => {
+  const otvoriNewDogWin = () => {
     setNaziv('')
     setOpis('')
     setPocetak('')
     setKraj('')
     setCijeliDan(false)
-    setShowModal(true)
+    setShowNewDogWin(true)
   }
 
   const spremiDogadaj = async (e) => {
@@ -94,7 +94,7 @@ export default function Kalendar({ kucanstvoId, session }) {
     if (error) {
       alert('Greška: ' + error.message)
     } else {
-      setShowModal(false)
+      setShowNewDogWin(false)
     }
   }
 
@@ -181,7 +181,7 @@ export default function Kalendar({ kucanstvoId, session }) {
   return (
     <div className="kalendar">
       <div className="financije-actions">
-        <button onClick={otvoriModal}>+ Događaj</button>
+        <button onClick={otvoriNewDogWin}>+ Događaj</button>
       </div>
 
       {/* AKTIVNI */}
@@ -204,8 +204,8 @@ export default function Kalendar({ kucanstvoId, session }) {
       )}
      
 
-      {showModal && (
-        <div className="modal-overlay" onClick={() => setShowModal(false)}>
+      {showDogWin && (
+        <div className="modal-overlay" onClick={() => setShowNewDogWin(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <h2>Novi događaj</h2>
             <form onSubmit={spremiDogadaj}>
@@ -244,7 +244,7 @@ export default function Kalendar({ kucanstvoId, session }) {
               </label>
 
               <div className="modal-actions">
-                <button type="button" className="secondary" onClick={() => setShowModal(false)}>Odustani</button>
+                <button type="button" className="secondary" onClick={() => setShowNewDogWin(false)}>Odustani</button>
                 <button type="submit" disabled={!naziv.trim() || !pocetak}>Spremi</button>
               </div>
             </form>
