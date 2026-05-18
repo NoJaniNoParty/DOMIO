@@ -6,19 +6,18 @@ export default function Financije({ kucanstvoId }) {
   const [troskovi, setTroskovi] = useState([])
   const [loading, setLoading] = useState(true)
   const [prikaz, setPrikaz] = useState('pregled')
-  const [filterKategorija, setFilterKategorija] = useState('')
+  const [filterProracun, setFilterProracun] = useState('')
   
   // novi proracun
   const [showProracunModal, setShowProracunModal] = useState(false)
   const [proracunNaziv, setProracunNaziv] = useState('')
-  const [proracunKategorija, setProracunKategorija] = useState('')
   const [proracunIznos, setProracunIznos] = useState('')
   const [proracunPeriod, setProracunPeriod] = useState('mjesecno')
 
   // novi trosak
   const [showTrosakWin, setShowTrosakWin] = useState(false)
   const [trosakIznos, setTrosakIznos] = useState('')
-  const [trosakKategorija, setTrosakKategorija] = useState('')
+  const [trosakProracunId, setTrosakProracunId] = useState('')
   const [trosakNaziv, setTrosakNaziv] = useState('')
   const [trosakDatum, setTrosakDatum] = useState(new Date().toISOString().split('T')[0])
 
@@ -32,7 +31,7 @@ export default function Financije({ kucanstvoId }) {
 
     const { data: troskoviData } = await supabase
       .from('troskovi')
-      .select('*, profili (ime, email)')
+      .select('*, profili (ime, email), proracuni (id, naziv)')
       .eq('kucanstvo_id', kucanstvoId)
       .order('datum', { ascending: false })
 
@@ -52,7 +51,7 @@ export default function Financije({ kucanstvoId }) {
 
       const { data: troskoviData } = await supabase
         .from('troskovi')
-        .select('*, profili (ime, email)')
+        .select('*, profili (ime, email), proracuni (id, naziv)')
         .eq('kucanstvo_id', kucanstvoId)
         .order('datum', { ascending: false })
 
@@ -88,7 +87,6 @@ export default function Financije({ kucanstvoId }) {
   // PRORACUN
   const otvoriProracunModal = () => {
     setProracunNaziv('')
-    setProracunKategorija('')
     setProracunIznos('')
     setProracunPeriod('mjesecno')
     setShowProracunModal(true)
@@ -101,9 +99,7 @@ export default function Financije({ kucanstvoId }) {
       .from('proracuni')
       .insert({
         kucanstvo_id: kucanstvoId,
-        
         naziv: proracunNaziv.trim(),
-        kategorija: proracunKategorija.trim(),
         iznos: parseFloat(proracunIznos),
         period: proracunPeriod
       })
@@ -116,7 +112,7 @@ export default function Financije({ kucanstvoId }) {
   }
 
   const obrisiProracun = async (id) => {
-    if (!confirm('Sigurno obrisati ovaj proračun?')) return
+    if (!confirm('Sigurno obrisati ovaj proračun? Troškovi ostaju ali neće biti vezani ni za jedan proračun.')) return
 
     const { error } = await supabase
       .from('proracuni')
@@ -132,10 +128,13 @@ export default function Financije({ kucanstvoId }) {
 
   // TROSAK
   const otvoriTrosakWin = () => {
+    if (proracuni.length === 0) {
+      alert('Prvo moraš kreirati barem jedan proračun!')
+      return
+    }
     setTrosakIznos('')
-    setTrosakKategorija('')
+    setTrosakProracunId(proracuni[0].id) // default - prvi proracun
     setTrosakNaziv('')
-    // resetiraj datum na danasnji
     setTrosakDatum(new Date().toISOString().split('T')[0])
     setShowTrosakWin(true)
   }
@@ -147,10 +146,8 @@ export default function Financije({ kucanstvoId }) {
       .from('troskovi')
       .insert({
         kucanstvo_id: kucanstvoId,
-        //platio: session.user.id,
+        proracun_id: trosakProracunId,
         iznos: parseFloat(trosakIznos),
-        kategorija: trosakKategorija.trim(),
-        //ostala pormjena opis
         opis: trosakNaziv.trim(),
         datum: trosakDatum
       })
@@ -173,12 +170,11 @@ export default function Financije({ kucanstvoId }) {
     if (error) {
       alert('Greška: ' + error.message)
     } else {
-      setTroskovi(prev => prev.filter(p => p.id !== id))
+      setTroskovi(prev => prev.filter(t => t.id !== id))
     }
   }
 
-  //ababab
-
+  // FORMAT
   const formatIznos = (iznos) => {
     return parseFloat(iznos).toLocaleString('hr-HR', {
       minimumFractionDigits: 2,
@@ -190,7 +186,7 @@ export default function Financije({ kucanstvoId }) {
     return new Date(datum).toLocaleDateString('hr-HR')
   }
 
-  // Izracunaj potroseno za ovaj proracun za sada
+  // zzracunaj potroseno za ovaj proracun za trenutni period
   const potrosenoZaProracun = (proracun) => {
     const sada = new Date()
     let pocetakPerioda
@@ -203,14 +199,13 @@ export default function Financije({ kucanstvoId }) {
 
     return troskovi
       .filter(t => 
-        t.kategorija === proracun.kategorija &&
+        t.proracun_id === proracun.id &&
         new Date(t.datum) >= pocetakPerioda
       )
       .reduce((sum, t) => sum + parseFloat(t.iznos), 0)
   }
 
-
-  // ukupno potroseno ovaj mjesec
+  // ukupno potroseno ovaj mjesec (svi troskovi)
   const ukupnoOvajMjesec = () => {
     const pocetakMjeseca = new Date(new Date().getFullYear(), new Date().getMonth(), 1)
     return troskovi
@@ -218,15 +213,10 @@ export default function Financije({ kucanstvoId }) {
       .reduce((sum, t) => sum + parseFloat(t.iznos), 0)
   }
 
-  // lista kategorija
-  //kategorije se dinamicki kreiraju iz trenutnih
-  const sveKategorije = [...new Set([
-    ...proracuni.map(p => p.kategorija),
-    ...troskovi.map(t => t.kategorija)
-  ])].sort()
-
-  // filtrirani troskovi
-  const filtriraniTroskovi = filterKategorija ? troskovi.filter(t => t.kategorija === filterKategorija) : troskovi
+  // filtrirani troskovi po proracunu
+  const filtriraniTroskovi = filterProracun 
+    ? troskovi.filter(t => t.proracun_id === filterProracun) 
+    : troskovi
 
   if (loading) return <p className="empty">Učitavanje financija...</p>
 
@@ -268,7 +258,7 @@ export default function Financije({ kucanstvoId }) {
 
           <h3 className="lista-naslov-grupe">Status proračuna</h3>
           {proracuni.length === 0 ? (
-            <p className="empty-mali">Nemas jos proračuna. Definiraj ih u tabu "Proračuni"!</p>) : ( proracuni.map(proracun => {
+            <p className="empty-mali">Nemaš još proračuna. Definiraj ih u tabu "Proračuni"!</p>) : ( proracuni.map(proracun => {
               const potroseno = potrosenoZaProracun(proracun)
               const limit = parseFloat(proracun.iznos)
               const postotak = Math.min((potroseno / limit) * 100, 100)
@@ -280,7 +270,7 @@ export default function Financije({ kucanstvoId }) {
                   <div className="proracun-header">
                     <div>
                       <strong>{proracun.naziv}</strong>
-                      <span className="meta-tag">{proracun.kategorija}</span>
+                      <span className="meta-tag">{proracun.period}</span>
                     </div>
                     <div className="proracun-iznosi">
                       {formatIznos(potroseno)} / {formatIznos(limit)}
@@ -317,7 +307,6 @@ export default function Financije({ kucanstvoId }) {
                 <div className="dogadaj-info">
                   <div className="dogadaj-naziv">{proracun.naziv}</div>
                   <div className="dogadaj-meta">
-                    <span className="meta-tag">{proracun.kategorija}</span>
                     <span className="meta-tag">{formatIznos(proracun.iznos)}</span>
                     <span className="meta-tag">{proracun.period}</span>
                   </div>
@@ -334,12 +323,12 @@ export default function Financije({ kucanstvoId }) {
         <>
           <div className="financije-actions">
             <select 
-              value={filterKategorija} 
-              onChange={(e) => setFilterKategorija(e.target.value)}
+              value={filterProracun} 
+              onChange={(e) => setFilterProracun(e.target.value)}
               className="filter-select">
-              <option value="">Sve kategorije</option>
-              {sveKategorije.map(k => (
-                <option key={k} value={k}>{k}</option>
+              <option value="">Svi proračuni</option>
+              {proracuni.map(p => (
+                <option key={p.id} value={p.id}>{p.naziv}</option>
               ))}
             </select>
             <button onClick={() => otvoriTrosakWin()}>+ Trošak</button>
@@ -350,10 +339,11 @@ export default function Financije({ kucanstvoId }) {
               <div key={trosak.id} className="trosak-card">
                 <div className="trosak-iznos">{formatIznos(trosak.iznos)}</div>
                 <div className="dogadaj-info">
-                  {/*opis zbog imena u bazi*/}
                   <div className="dogadaj-naziv">{trosak.opis}</div>
                   <div className="dogadaj-meta">
-                    <span className="meta-tag">{trosak.kategorija}</span>
+                    {trosak.proracuni && (
+                      <span className="meta-tag">{trosak.proracuni.naziv}</span>
+                    )}
                     <span className="meta-tag">{formatDatum(trosak.datum)}</span>
                     {trosak.profili && (
                       <span className="meta-tag">
@@ -369,26 +359,20 @@ export default function Financije({ kucanstvoId }) {
         </>
       )}
 
-      
+      {/* MODAL ZA PRORACUN */}
       {showProracunModal && (
         <div className="modal-overlay" onClick={() => setShowProracunModal(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <h2>Novi proracun</h2>
+            <h2>Novi proračun</h2>
 
             <form onSubmit={spremiProracun}>
               <input
                 type="text"
-                placeholder="Naziv (npr. 'Hrana')"
+                placeholder="Naziv (npr. 'Hrana', 'Režije')"
                 value={proracunNaziv}
                 onChange={(e) => setProracunNaziv(e.target.value)}
                 required
                 autoFocus/>
-              <input
-                type="text"
-                placeholder="Kategorija (npr. 'Hrana', 'Režije')"
-                value={proracunKategorija}
-                onChange={(e) => setProracunKategorija(e.target.value)}
-                required/>
               <input
                 type="number"
                 step="0.01"
@@ -413,7 +397,7 @@ export default function Financije({ kucanstvoId }) {
         </div>
       )}
 
-      {/* NOVI TROSKOVI*/}
+      {/* MODAL ZA NOVI TROSAK */}
       {showTrosakWin && (
         <div className="modal-overlay" onClick={() => setShowTrosakWin(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
@@ -429,21 +413,17 @@ export default function Financije({ kucanstvoId }) {
                 onChange={(e) => setTrosakIznos(e.target.value)}
                 required
                 autoFocus/>
-              <input
-                type="text"
-                placeholder="Kategorija"
-                value={trosakKategorija}
-                onChange={(e) => setTrosakKategorija(e.target.value)}
-                list="kategorije-prijedlozi"
-                required/>
-              <datalist id="kategorije-prijedlozi">
-                {sveKategorije.map(k => (
-                  <option key={k} value={k} />
+              <select
+                value={trosakProracunId}
+                onChange={(e) => setTrosakProracunId(e.target.value)}
+                required>
+                {proracuni.map(p => (
+                  <option key={p.id} value={p.id}>{p.naziv}</option>
                 ))}
-              </datalist>
+              </select>
               <input
                 type="text"
-                placeholder="Naziv"
+                placeholder="Naziv (npr. 'Kupovina u Konzumu')"
                 value={trosakNaziv}
                 onChange={(e) => setTrosakNaziv(e.target.value)}
                 required/>
