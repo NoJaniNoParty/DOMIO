@@ -213,6 +213,14 @@ export default function Financije({ kucanstvoId }) {
       .reduce((sum, t) => sum + parseFloat(t.iznos), 0)
   }
 
+  //ukupno ove godine
+  const ukupnoOveGodine = () => {
+    const pocetakGodine = new Date(new Date().getFullYear())
+    return troskovi
+      .filter(t => new Date(t.datum) >= pocetakGodine)
+      .reduce((sum, t) => sum + parseFloat(t.iznos), 0)
+  }
+
   // filtrirani troskovi po proracunu
   const filtriraniTroskovi = filterProracun 
     ? troskovi.filter(t => t.proracun_id === filterProracun) 
@@ -241,10 +249,14 @@ export default function Financije({ kucanstvoId }) {
       
       {prikaz === 'pregled' && (
         <>
-          <div className="finance-summary">
+          <div className="finance-summary big">
             <div className="summary-card big">
               <div className="summary-label">Ukupno potrošeno ovaj mjesec</div>
               <div className="summary-value">{formatIznos(ukupnoOvajMjesec())}</div>
+            </div>
+            <div className="summary-card big">
+              <div className="summary-label">Ukupno potrošeno ove godine</div>
+              <div className="summary-value">{formatIznos(ukupnoOveGodine())}</div>
             </div>
             <div className="summary-card">
               <div className="summary-label">Aktivni proračuni</div>

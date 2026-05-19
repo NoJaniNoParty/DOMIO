@@ -876,6 +876,7 @@ input {
   border-radius: var(--radius);
   font-size: 14px;
   background: var(--bg-card);
+  color: var(--text);
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -1081,6 +1082,7 @@ input {
   padding-top: 12px;
   border-top: 1px dashed var(--border);
   display: flex;
+  
   flex-direction: column;
   gap: 8px;
 }
@@ -1091,6 +1093,7 @@ input {
   border-radius: var(--radius-sm);
   font-size: 13px;
   background: var(--bg-card);
+  color: var(--text);
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -1115,6 +1118,7 @@ input {
   border-radius: var(--radius-sm);
   font-size: 13px;
   background: var(--bg-card);
+  color: var(--text);
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
   cursor: pointer;
@@ -1304,7 +1308,7 @@ input {
 /* Summary kartice - PREGLED */
 .finance-summary {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 12px;
   margin-bottom: 20px;
 }
@@ -1693,6 +1697,7 @@ input {
   /* ===== ZADACI ===== */
   .nova-lista-forma {
     flex-direction: column;
+    
   }
 
   .nova-lista-forma button {
