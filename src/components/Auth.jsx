@@ -89,7 +89,7 @@ export default function Auth() {
 
       <p>
         {/*ne brisi prazno to je razmak*/}
-        {isRegistered ? 'Već imšs račun?' : 'Nemaš račun?'}{' '}
+        {isRegistered ? 'Već imaš račun?' : 'Nemaš račun?'}{' '}
         <button
         //izbjegni submit - definiraj tip
           type="button"
