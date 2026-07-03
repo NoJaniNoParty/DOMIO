@@ -22,10 +22,8 @@ export default function Auth() {
       password,
       options: {
         data: {ime: ime}
-        
       }
     })
-
     if (error) {
       setMessage('Greška: ' + error.message)
     } else {

@@ -14,7 +14,8 @@ export default function KreirajKucanstvo({ onClose, onSuccess }) {
     // Pozovi SQL funkciju koja sve napravi odjednom
     const { error: errFunkcija } = await supabase
     // RLS politika daje korisniku da vidi samo kucanstva ciji je clan
-    // to znaci da ne moze kreirati kucanstvo jer jos nije clan -> u bazi je setupana funkcija sa security idenfitifierom
+    // to znaci da ne moze kreirati kucanstvo jer jos nije clan -> u bazi je setupana 
+    // funkcija sa security idenfitifierom
     // rls politika se na taj nacin zaobiđe jer je admin taj koji izvrsi insert umjesto korisnika
       .rpc('kreiraj_kucanstvo', { p_naziv: naziv.trim() })
     if (errFunkcija) {

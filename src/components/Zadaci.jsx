@@ -53,9 +53,7 @@ export default function Zadaci({ kucanstvoId, session }) {
         .select('*')
         .eq('kucanstvo_id', kucanstvoId)
         .order('stvoren_u', { ascending: true })
-
       if (!aktivan) return
-
       const listaIds = (listeData || []).map(l => l.id)
       let zadaciData = []
       if (listaIds.length > 0) {
@@ -66,14 +64,12 @@ export default function Zadaci({ kucanstvoId, session }) {
           .order('stvoren_u', { ascending: true })
         zadaciData = data || []
       }
-
       const { data: clanoviData } = await supabase
         .from('clanovi_kucanstva')
         .select('korisnik_id, profili (id, ime, email)')
         .eq('kucanstvo_id', kucanstvoId)
 
       if (!aktivan) return
-
       setListe(listeData || [])
       setClanovi(clanoviData || [])
 

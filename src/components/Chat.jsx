@@ -17,15 +17,7 @@ export default function Chat({ kucanstvoId, session }) {
       const { data, error } = await supabase
         .from('poruke')
         .select(`
-          id,
-          sadrzaj,
-          poslano_u,
-          posiljatelj_id,
-          profili (
-            ime,
-            email
-          )
-        `)
+          id,sadrzaj, poslano_u, posiljatelj_id, profili ( ime,email)`)
         .eq('kucanstvo_id', kucanstvoId)
         .order('poslano_u', { ascending: true })
 
@@ -88,13 +80,10 @@ export default function Chat({ kucanstvoId, session }) {
   const posaljiPoruku = async (e) => {
     e.preventDefault()
     if (!novaPoruka.trim()) return
-
-
     setSalje(true)
     // UX da chat input odma postane prazan
     const tekst = novaPoruka.trim()
     setNovaPoruka('')
-    // moze insert jer je korisnik vec clan
     const { error } = await supabase
       .from('poruke')
       .insert({
@@ -131,7 +120,6 @@ if (loading) return <p className="empty">Učitavanje poruka...</p>
             const jeMoja = poruka.posiljatelj_id === session.user.id
             //ime ako postoji ako ne onda mail ako ne onda nepoznat
             const ime = poruka.profili?.ime || poruka.profili?.email || 'Nepoznat'
-
             return (
               <div
                 key={poruka.id}

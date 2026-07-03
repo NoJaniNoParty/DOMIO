@@ -245,7 +245,7 @@ export default function Kalendar({ kucanstvoId, session }) {
 
               <div className="modal-actions">
                 <button type="button" className="secondary" onClick={() => setShowNewDogWin(false)}>Odustani</button>
-                <button type="submit" disabled={!naziv.trim() || !pocetak}>Spremi</button>
+                <button type="submit" disabled= {!naziv.trim() || !pocetak}>Spremi</button>
               </div>
             </form>
           </div>

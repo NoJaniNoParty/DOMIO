@@ -222,9 +222,8 @@ export default function Financije({ kucanstvoId }) {
   }
 
   // filtrirani troskovi po proracunu
-  const filtriraniTroskovi = filterProracun 
-    ? troskovi.filter(t => t.proracun_id === filterProracun) 
-    : troskovi
+  const filtriraniTroskovi = filterProracun ? troskovi.filter(t => t.proracun_id === filterProracun) 
+  : troskovi
 
   if (loading) return <p className="empty">Učitavanje financija...</p>
 
